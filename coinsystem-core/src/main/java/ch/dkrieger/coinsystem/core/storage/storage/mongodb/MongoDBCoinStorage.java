@@ -14,10 +14,8 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import org.bson.Document;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 public class MongoDBCoinStorage implements CoinStorage {
@@ -56,7 +54,8 @@ public class MongoDBCoinStorage implements CoinStorage {
     @Override
     public CoinPlayer getPlayer(String name) {
         return MongoDBUtil.findFirst(collection,
-                new org.bson.Document().append("name", new org.bson.Document("$regex", name).append("$options","i")),CoinPlayer.class);
+                new org.bson.Document().append("name", new org.bson.Document("$regex", name)
+                        .append("$options","i")),CoinPlayer.class);
     }
     @Override
     public List<CoinPlayer> getPlayers() {

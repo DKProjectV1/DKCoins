@@ -27,7 +27,7 @@ public class CoinBoosterExtension extends JavaPlugin{
 
         Bukkit.getScheduler().runTaskLater(this,()->{
             Config.getInstance().add("permissions.extension.coinboost","dkcoins.booster.boost.[boost]");
-            Config.getInstance().add("message.extension.coinbooster.boost","&7You have a boost of &e[boost]%, &7youe get &e[coins] &6Coins &7more");
+            Config.getInstance().add("message.extension.coinbooster.boost","&7You have a boost of &e[boost]%, &7you get &e[coins] &7Coins more.");
             Config.getInstance().add("extension.coinbooster.enabled.admincommand",true);
             Config.getInstance().add("extension.coinbooster.enabled.vaulthook",true);
             ArrayList<String> list = new ArrayList<>();

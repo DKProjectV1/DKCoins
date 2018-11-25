@@ -82,12 +82,9 @@ public class JsonCoinStorage implements CoinStorage {
     @Override
     public List<CoinPlayer> getTopPlayers(int maxReturnSize) {
         LinkedList<CoinPlayer> list = new LinkedList<>(this.players);
-        list.sort(new Comparator<CoinPlayer>() {
-            @Override
-            public int compare(CoinPlayer player1, CoinPlayer player2) {
-                if(player1.getCoins() > player2.getCoins()) return -1;
-                else return 1;
-            }
+        list.sort((player1, player2) -> {
+            if(player1.getCoins() > player2.getCoins()) return -1;
+            else return 1;
         });
         return list;
     }

@@ -1,0 +1,43 @@
+messages:
+  prefix: '&8» &6DKCoins &8| &f'
+  nopermissions: '&cDu hast keine Permissions!'
+  noconnection: '&cKeine Verbindung zur Datenbank'
+  coins:
+    singular: coin
+    plural: coins
+    symbol: €
+  player:
+    notfound: '&cDer Spieler &e[player] &cwurde nicht gefunden.'
+  command:
+    coins: '&7Kontostand&8: &e[amount] &7Coins'
+    coinsothers: '&7Kontostand von &e[player]&8: &e[amount] &7Coins.'
+    top:
+      header: '&6Top 10 Spieler'
+      list: ' &8[&7[rang]&8] &e[player]&8: &e[amount] &7Coins'
+    pay:
+      notenough: '&cDu hast nicht genug Coins.'
+      sender: '&7Du hast &e[player] &e[amount] &7Coins &7überwiesen.'
+      receiver: '&7Du hast von &e[player] &e[amount] &7Coins erhalten.'
+    set:
+      sender: '&7Der Kontostand von &e[player] &/ wurde zu &e[amount] &7Coins gesetzt.'
+      receiver: '&7Dein Kontostand wurde zu &e[amount] &7Coins gesetzt.'
+    add:
+      sender: '&e[player] &7wurden &e[amount] &7Coins hinzugefügt.'
+      receiver: '&7Dir wurden &e[amount] &7Coins hinzugefügt.'
+    remove:
+      sender: '&e[player] &7wurden &e[amount] &7Coins abgezogen.'
+      receiver: '&7Dir wurden &e[amount] &7Coins abgezogen.'
+    help:
+      header: '&8--------[&6DKCoins&8]--------'
+      coins:
+        see: '&e/coins <player>'
+        top: '&e/coins top'
+        pay: '&e/coins pay <player> <amount>'
+        set: '&e/coins set <player> <amount>'
+        add: '&e/coins add <player> <amount>'
+        remove: '&e/coins remove <player> <amount>'
+        reset: '&e/coins reset <player>'
+message:
+  extension:
+    coinbooster:
+      boost: '&7Du hast einen Boost von &e[boost]%&7, du bekommst &e[coins] &7Coins mehr.'

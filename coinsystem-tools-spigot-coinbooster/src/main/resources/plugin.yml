@@ -2,5 +2,6 @@ name: DKCoinsBoosterExtension
 author: Dkrieger
 description: 
 version: 1.0.3
+api-version: 1.13
 
 main: ch.dkrieger.coinsystem.tools.spigot.coinbooster.CoinBoosterExtension

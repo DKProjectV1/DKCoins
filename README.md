@@ -196,5 +196,5 @@ event.getColor(); //get the update cause
 
 ## License
 
-This project is licensed under the Apache License - see the [LICENSE.md](LICENSE.md) file for more informations.
+This project is licensed under the Apache License - see the [LICENSE](LICENSE) file for more informations.
 

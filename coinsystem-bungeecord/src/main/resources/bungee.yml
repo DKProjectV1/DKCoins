@@ -1,0 +1,7 @@
+name: DKCoins
+author: Dkrieger
+description: 
+version: 3.0.0
+
+main: ch.dkrieger.coinsystem.bungeecord.BungeeCordCoinSystemBootstrap
+commands:

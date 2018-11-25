@@ -1,0 +1,10 @@
+name: DKCoins
+author: Dkrieger
+description: 
+version: 3.0.0
+api-version: 1.13
+
+main: ch.dkrieger.coinsystem.spigot.SpigotCoinSystemBootstrap
+commands:    
+     dkcoins:
+           aliases: [dkcoin]

@@ -1,6 +1,6 @@
 # DKCoins - Minecraft CoinSystem
 
-Official page: https://www.spigotmc.org/resources/coinsystem-for-mysql-german-english.39159/
+Official page: https://www.spigotmc.org/resources/dkcoins-coinsystem-mysql-sqlite-mongodb-json-german-english.39159/
 
 ## Installation 
 

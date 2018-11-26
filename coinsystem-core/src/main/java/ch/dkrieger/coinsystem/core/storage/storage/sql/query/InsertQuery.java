@@ -77,7 +77,7 @@ public class InsertQuery extends Query{
             pstatement.executeUpdate();
             ResultSet result = pstatement.getGeneratedKeys();
             if(result != null){
-                if(result.next()) return result.getInt(1);
+                if(result.first()) return result.getInt(1);
             }
             if(result != null) result.close();
             pstatement.close();

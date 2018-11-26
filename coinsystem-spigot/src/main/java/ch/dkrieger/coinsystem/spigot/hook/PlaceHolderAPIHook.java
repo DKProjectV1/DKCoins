@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import ch.dkrieger.coinsystem.core.player.CoinPlayer;
-import ch.dkrieger.coinsystem.core.player.CoinPlayerManager;
 import me.clip.placeholderapi.external.EZPlaceholderHook;
 
 public class PlaceHolderAPIHook extends EZPlaceholderHook{

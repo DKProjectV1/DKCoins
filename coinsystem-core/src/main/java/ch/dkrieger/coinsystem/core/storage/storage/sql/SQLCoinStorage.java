@@ -5,7 +5,6 @@ import ch.dkrieger.coinsystem.core.manager.MessageManager;
 import ch.dkrieger.coinsystem.core.player.CoinPlayer;
 import ch.dkrieger.coinsystem.core.storage.CoinStorage;
 import ch.dkrieger.coinsystem.core.storage.storage.sql.query.CustomQuery;
-import ch.dkrieger.coinsystem.core.storage.storage.sql.query.Query;
 import ch.dkrieger.coinsystem.core.storage.storage.sql.query.SelectQuery;
 import ch.dkrieger.coinsystem.core.storage.storage.sql.sqlite.SQLiteCoinStorage;
 import ch.dkrieger.coinsystem.core.storage.storage.sql.table.Table;
@@ -99,7 +98,7 @@ public abstract class SQLCoinStorage implements CoinStorage {
         ResultSet result = query.execute();
         if (result == null) return null;
         try {
-            while (result.next()) {
+            if(result.first()) {
                 return new CoinPlayer(result.getInt("ID"),
                         UUID.fromString(result.getString("uuid")),
                         result.getString("name"),

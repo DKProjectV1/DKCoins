@@ -2,7 +2,6 @@ package ch.dkrieger.coinsystem.spigot.hook;
 
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
 import ch.dkrieger.coinsystem.core.manager.MessageManager;
@@ -96,7 +95,7 @@ public class VaultHook extends AbstractEconomy{
 	}
 	public boolean has(String player, double coins) {
 		CoinPlayer coinplayer = CoinPlayerManager.getInstance().getPlayer(player);
-		if(coinplayer != null) if(coinplayer.getCoins() >= coins) return true;
+		if(coinplayer != null && coinplayer.getCoins() >= coins) return true;
 		return false;
 	}
 	public boolean has(OfflinePlayer player, double coins) {
@@ -110,8 +109,7 @@ public class VaultHook extends AbstractEconomy{
 	}
 	public boolean hasAccount(String player) {
 		CoinPlayer coinplayer = CoinPlayerManager.getInstance().getPlayer(player);
-		if(coinplayer != null) return true;
-		return false;
+		return coinplayer != null;
 	}
 	public boolean hasAccount(OfflinePlayer player) {
 		return hasAccount(player.getName());

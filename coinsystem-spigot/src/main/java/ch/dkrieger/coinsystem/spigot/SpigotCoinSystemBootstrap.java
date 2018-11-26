@@ -48,7 +48,7 @@ public class SpigotCoinSystemBootstrap extends JavaPlugin implements DKCoinsPlat
 		getCommand("dkcoins").setExecutor(new DKCoinsCommand());
 		registerCommand(new CoinsCommand());
 		if(Config.getInstance().command_pay_enabled) registerCommand(new PayCommand());
-
+		hook();
 	}
 	@Override
 	public void onDisable() {

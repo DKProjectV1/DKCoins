@@ -3,9 +3,6 @@ package ch.dkrieger.coinsystem.core.manager;
 public class PermissionManager {
 	
 	private static PermissionManager instance;
-	public PermissionManager(){
-		instance = this;
-	}
 	
 	public String admin;
 	
@@ -14,6 +11,10 @@ public class PermissionManager {
 	public String command_coins_top;
 	public String command_coins_pay;
 	public String command_coins_admin;
+
+	public PermissionManager(){
+		instance = this;
+	}
 
 	public static PermissionManager getInstance(){
 		return instance;

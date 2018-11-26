@@ -3,7 +3,6 @@ package ch.dkrieger.coinsystem.spigot.commands;
 import ch.dkrieger.coinsystem.core.config.Config;
 import ch.dkrieger.coinsystem.core.manager.MessageManager;
 import ch.dkrieger.coinsystem.core.manager.PermissionManager;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

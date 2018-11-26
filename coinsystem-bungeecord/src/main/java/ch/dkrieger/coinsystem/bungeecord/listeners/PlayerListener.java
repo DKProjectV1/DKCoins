@@ -3,7 +3,6 @@ package ch.dkrieger.coinsystem.bungeecord.listeners;
 
 import ch.dkrieger.coinsystem.bungeecord.BungeeCordCoinSystemBootstrap;
 import ch.dkrieger.coinsystem.core.CoinSystem;
-import ch.dkrieger.coinsystem.core.manager.MessageManager;
 import ch.dkrieger.coinsystem.core.player.CoinPlayer;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.chat.TextComponent;

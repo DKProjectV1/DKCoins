@@ -53,11 +53,9 @@ public class PlayerListener implements Listener{
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e){
 		Bukkit.getScheduler().runTaskAsynchronously(SpigotCoinSystemBootstrap.getInstance(),()->{
-			if(Config.getInstance().system_player_addcoinsonkill){
-				if(e.getEntity().getKiller() != null){
-					CoinPlayer coinplayer = CoinSystem.getInstance().getPlayerManager().getPlayer(e.getEntity().getKiller().getUniqueId());
-					if(coinplayer != null) coinplayer.addCoins(Config.getInstance().system_player_addcoinsonkill_amount,"kill");
-				}
+			if(Config.getInstance().system_player_addcoinsonkill && e.getEntity().getKiller() != null){
+				CoinPlayer coinplayer = CoinSystem.getInstance().getPlayerManager().getPlayer(e.getEntity().getKiller().getUniqueId());
+				if(coinplayer != null) coinplayer.addCoins(Config.getInstance().system_player_addcoinsonkill_amount,"kill");
 			}
 			if(Config.getInstance().system_player_removecoinsondeath){
 				CoinPlayer coinplayer = CoinSystem.getInstance().getPlayerManager().getPlayer(e.getEntity().getUniqueId());

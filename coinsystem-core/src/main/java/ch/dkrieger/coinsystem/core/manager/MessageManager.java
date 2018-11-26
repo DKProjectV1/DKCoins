@@ -3,11 +3,7 @@ package ch.dkrieger.coinsystem.core.manager;
 public class MessageManager {
 	
 	private static MessageManager instance;
-	public MessageManager(String system_name){
-		this.system_name = system_name;
-		this.system_prefix = "["+system_name+"] ";
-		instance = this;
-	}
+
 	public String system_prefix;
 	public String system_name;
 	public String prefix;
@@ -46,6 +42,12 @@ public class MessageManager {
 	public String command_coins_help_add;
 	public String command_coins_help_remove;
 	public String command_coins_help_reset;
+
+	public MessageManager(String system_name){
+		this.system_name = system_name;
+		this.system_prefix = "["+system_name+"] ";
+		instance = this;
+	}
 
 	public static MessageManager getInstance(){
 		return instance;

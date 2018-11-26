@@ -31,7 +31,7 @@ There are four storage options, json is not supported for BungeeCord.
 
 ### SQLite
 
-```
+```java
 storage:
   folder: plugins/DKCoins/data/
   type: SQLITE
@@ -50,7 +50,7 @@ storage:
 
 Replace the password and user to your data.
 
-```
+```java
 storage:
   folder: plugins/DKCoins/data/
   type: MYSQL
@@ -69,7 +69,7 @@ storage:
 
 Replace the data to your data.
 
-```
+```java
 storage:
   folder: plugins/DKCoins/data/
   type: MONGODB
@@ -88,7 +88,7 @@ storage:
 
 Replace the data to your data.
 
-```
+```java
 storage:
   folder: plugins/DKCoins/data/
   type: JSON
@@ -107,7 +107,7 @@ storage:
 
 ### Get a CoinPlayer
 
-```
+```java
 //by ID
 CoinPlayer player = CoinSystem.getInstance().getPlayerManager().getPlayer(int id);
 
@@ -120,7 +120,7 @@ CoinPlayer player = CoinSystem.getInstance().getPlayerManager().getPlayer(String
 
 ### Get player informations
 
-```
+```java
 player.getName(); //returns the player name
 
 player.getUUID(); //returns the player uuid
@@ -136,7 +136,7 @@ player.getLastLogin(); //returns the last login as timestamp
 ```
 
 ### set, add or remove coins from a player
-```
+```java
 player.setCoins(long coins);
 
 player.setCoins(long coins, CoinsUpdateCause cause);
@@ -148,7 +148,7 @@ player.setCoins(long coins, CoinsUpdateCause cause, String message);
 
 Set,  remove and add have the same methodes.
 
-```
+```java
 player.addCoins(long coins);
 player.removeCoins(long coins);
 ```
@@ -167,7 +167,7 @@ Available CoinsUpdateCause
 Use the event as normal Bukkit or BungeeCord event.
 
 Event options
-```
+```java
 event.getCoinPlayer(); // get the player
 
 event.getCause(); //get the update cause
@@ -191,7 +191,7 @@ Use the event as normal Bukkit or BungeeCord event.
 The event will be executed, when the player gets a color
 
 Event options
-```
+```java
 event.getPlayer(); // get the player
 
 event.getColor(); //get the update cause

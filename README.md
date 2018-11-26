@@ -1,26 +1,29 @@
 # DKCoins - Minecraft CoinSystem
 
-Official page: https://www.spigotmc.org/resources/coinsystem-for-mysql-german-english.39159/
+Official page:
+https://www.spigotmc.org/resources/dkcoins-coinsystem-mysql-sqlite-mongodb-json-german-english.39159/
+
+[![DKPlugins Discord](https://discordapp.com/api/guilds/513441444959223809/embed.png)](https://discord.gg/PawBsVy)
 
 ## Installation 
 
 ### Spigot
 
-1. Download the current version from SpigotMC.
-2. Put the plugin in your spigot plugin folder.
-3. Restart your server.
-4. Select a storage type (More informations below).
-5. restart your server.
+ 1. Download the current version from SpigotMC.
+ 2. Put the plugin in your spigot plugin folder.
+ 3. Restart your server.
+ 4. Select a storage type (More informations below).
+ 5. restart your server.
 
 ### BungeeCord
 
 The BungeeCord plugin is only a API, it has no commands.This is very interesting when you have a BungeeCord plugin, which needs Coins.
 
-1. Download the current version from SpigotMC.
-2. Put the plugin in your BungeeCord plugin folder.
-3. Restart your server.
-4. Select a storage type (Use the same storage and database, then your spigot server. BungeeCord has no json support).
-5. restart your server.
+ 1. Download the current version from SpigotMC.
+ 2. Put the plugin in your BungeeCord plugin folder.
+ 3. Restart your server.
+ 4. Select a storage type (Use the same storage and database, then your spigot server. BungeeCord has no json support).
+ 5. restart your server.
 
 ## Storage
 
@@ -153,9 +156,9 @@ player.removeCoins(long coins);
 The CoinsUpdateCause and message is to identify the coin change in the event.
 
 Available CoinsUpdateCause
-* ADMIN
-* API
-* PAY
+ * ADMIN
+ * API
+ * PAY
 
 ### Event
 
@@ -198,3 +201,5 @@ event.getColor(); //get the update cause
 
 This project is licensed under the Apache License - see the [LICENSE](LICENSE) file for more informations.
 
+## Support/Discord
+[![Join DKPlugins Discord](https://discordapp.com/api/guilds/513441444959223809/embed.png?style=banner2)](https://discord.gg/PawBsVy)

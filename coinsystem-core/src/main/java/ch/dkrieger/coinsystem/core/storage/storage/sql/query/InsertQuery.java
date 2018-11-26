@@ -57,8 +57,8 @@ public class InsertQuery extends Query{
             ResultSet result = pstatement.getGeneratedKeys();
             if(result != null){
                 if(result.next()) return result.getObject(1);
+                result.close();
             }
-            if(result != null) result.close();
             pstatement.close();
         }catch (SQLException e) {
             e.printStackTrace();
@@ -78,8 +78,8 @@ public class InsertQuery extends Query{
             ResultSet result = pstatement.getGeneratedKeys();
             if(result != null){
                 if(result.first()) return result.getInt(1);
+                result.close();
             }
-            if(result != null) result.close();
             pstatement.close();
         }catch (SQLException e) {
             e.printStackTrace();

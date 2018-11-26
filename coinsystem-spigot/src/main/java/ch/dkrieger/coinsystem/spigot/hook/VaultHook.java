@@ -95,8 +95,7 @@ public class VaultHook extends AbstractEconomy{
 	}
 	public boolean has(String player, double coins) {
 		CoinPlayer coinplayer = CoinPlayerManager.getInstance().getPlayer(player);
-		if(coinplayer != null && coinplayer.getCoins() >= coins) return true;
-		return false;
+		return coinplayer != null && coinplayer.getCoins() >= coins;
 	}
 	public boolean has(OfflinePlayer player, double coins) {
 		return has(player.getName(), coins);

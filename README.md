@@ -3,6 +3,7 @@
 Official page:
 <https://www.spigotmc.org/resources/dkcoins-coinsystem-mysql-sqlite-mongodb-json-german-english.39159/>
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d0ec972516ed47b2b6758b2277cb469b)](https://app.codacy.com/app/DevKrieger/DKCoins?utm_source=github.com&utm_medium=referral&utm_content=DevKrieger/DKCoins&utm_campaign=Badge_Grade_Dashboard)
 [![DKPlugins Discord](https://discordapp.com/api/guilds/513441444959223809/embed.png)](https://discord.gg/PawBsVy)
 
 ## Installation 

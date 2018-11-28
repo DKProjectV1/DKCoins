@@ -1,8 +1,9 @@
 # DKCoins - Minecraft CoinSystem
 
 Official page:
-https://www.spigotmc.org/resources/dkcoins-coinsystem-mysql-sqlite-mongodb-json-german-english.39159/
+<https://www.spigotmc.org/resources/dkcoins-coinsystem-mysql-sqlite-mongodb-json-german-english.39159/>
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d0ec972516ed47b2b6758b2277cb469b)](https://app.codacy.com/app/DevKrieger/DKCoins?utm_source=github.com&utm_medium=referral&utm_content=DevKrieger/DKCoins&utm_campaign=Badge_Grade_Dashboard)
 [![DKPlugins Discord](https://discordapp.com/api/guilds/513441444959223809/embed.png)](https://discord.gg/PawBsVy)
 
 ## Installation 
@@ -31,7 +32,7 @@ There are four storage options, json is not supported for BungeeCord.
 
 ### SQLite
 
-```
+```java
 storage:
   folder: plugins/DKCoins/data/
   type: SQLITE
@@ -50,7 +51,7 @@ storage:
 
 Replace the password and user to your data.
 
-```
+```java
 storage:
   folder: plugins/DKCoins/data/
   type: MYSQL
@@ -69,7 +70,7 @@ storage:
 
 Replace the data to your data.
 
-```
+```java
 storage:
   folder: plugins/DKCoins/data/
   type: MONGODB
@@ -88,7 +89,7 @@ storage:
 
 Replace the data to your data.
 
-```
+```java
 storage:
   folder: plugins/DKCoins/data/
   type: JSON
@@ -107,7 +108,7 @@ storage:
 
 ### Get a CoinPlayer
 
-```
+```java
 //by ID
 CoinPlayer player = CoinSystem.getInstance().getPlayerManager().getPlayer(int id);
 
@@ -120,7 +121,7 @@ CoinPlayer player = CoinSystem.getInstance().getPlayerManager().getPlayer(String
 
 ### Get player informations
 
-```
+```java
 player.getName(); //returns the player name
 
 player.getUUID(); //returns the player uuid
@@ -136,7 +137,7 @@ player.getLastLogin(); //returns the last login as timestamp
 ```
 
 ### set, add or remove coins from a player
-```
+```java
 player.setCoins(long coins);
 
 player.setCoins(long coins, CoinsUpdateCause cause);
@@ -148,7 +149,7 @@ player.setCoins(long coins, CoinsUpdateCause cause, String message);
 
 Set,  remove and add have the same methodes.
 
-```
+```java
 player.addCoins(long coins);
 player.removeCoins(long coins);
 ```
@@ -167,7 +168,7 @@ Available CoinsUpdateCause
 Use the event as normal Bukkit or BungeeCord event.
 
 Event options
-```
+```java
 event.getCoinPlayer(); // get the player
 
 event.getCause(); //get the update cause
@@ -191,7 +192,7 @@ Use the event as normal Bukkit or BungeeCord event.
 The event will be executed, when the player gets a color
 
 Event options
-```
+```java
 event.getPlayer(); // get the player
 
 event.getColor(); //get the update cause

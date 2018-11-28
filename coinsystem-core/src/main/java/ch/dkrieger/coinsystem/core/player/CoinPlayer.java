@@ -56,7 +56,7 @@ public class CoinPlayer {
 	public String getColor(){
 		if(Config.getInstance().liveColorUpdate){
 			String color = CoinSystem.getInstance().getPlatform().getColor(this);
-			if(color != null) return color;
+			if(color != null) this.color = color;
 		}
 		return ChatColor.translateAlternateColorCodes('&',this.color);
 	}

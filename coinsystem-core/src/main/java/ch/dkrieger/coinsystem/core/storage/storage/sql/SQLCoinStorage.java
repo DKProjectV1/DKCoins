@@ -51,16 +51,16 @@ public abstract class SQLCoinStorage implements CoinStorage {
     public boolean connect() {
         if(!isConnected()){
             loadDriver();
-            System.out.println(MessageManager.getInstance().system_name+"connecting to SQL server at "+config.host+":"+config.port);
+            System.out.println(MessageManager.getInstance().system_prefix+"connecting to SQL server at "+config.host+":"+config.port);
             try {
                 connect(config);
                 this.table = new Table(this, "DKCoins_players");// .create("PRIMARY KEY (`ID`)")
                 createTable(table);
-                System.out.println(MessageManager.getInstance().system_name+"successful connected to SQL server at "+config.host+":"+config.port);
+                System.out.println(MessageManager.getInstance().system_prefix+"successful connected to SQL server at "+config.host+":"+config.port);
             }catch (SQLException exception) {
-                System.out.println(MessageManager.getInstance().system_name+"Could not connect to SQL server at "+config.host+":"+config.port);
-                System.out.println(MessageManager.getInstance().system_name+"Error: "+exception.getMessage());
-                System.out.println(MessageManager.getInstance().system_name+"Check your login data in the config.");
+                System.out.println(MessageManager.getInstance().system_prefix+"Could not connect to SQL server at "+config.host+":"+config.port);
+                System.out.println(MessageManager.getInstance().system_prefix+"Error: "+exception.getMessage());
+                System.out.println(MessageManager.getInstance().system_prefix+"Check your login data in the config.");
                 connection = null;
                 return false;
             }

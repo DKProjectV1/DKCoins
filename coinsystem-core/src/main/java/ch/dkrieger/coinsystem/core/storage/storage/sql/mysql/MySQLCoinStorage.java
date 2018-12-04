@@ -59,7 +59,7 @@ public class MySQLCoinStorage extends SQLCoinStorage implements Runnable {
 			DatabaseMetaData metadata = getConnection().getMetaData();
 			ResultSet resultSet = metadata.getColumns(null, null, table.getName(), "ip");
 			if(resultSet.next()){
-				System.out.println(MessageManager.getInstance().system_prefix+" translating mysql table from v2.x.x to v3.0.1");
+				System.out.println(MessageManager.getInstance().system_prefix+" translating mysql table from v2.x.x to v3.0.3");
 				table.query().execute("ALTER TABLE "+table.getName()+" DROP ip;");
 				table.update().set("firstlogin",System.currentTimeMillis()).execute();
 			}

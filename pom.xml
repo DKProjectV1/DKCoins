@@ -10,7 +10,7 @@
     <version>${version}</version>
 
     <properties>
-        <version>3.0.1</version>
+        <version>3.0.3</version>
     </properties>
 
     <modules>

@@ -98,7 +98,7 @@ public abstract class SQLCoinStorage implements CoinStorage {
         ResultSet result = query.execute();
         if (result == null) return null;
         try {
-            if(result.first()) {
+            if(result.next()) {
                 return new CoinPlayer(result.getInt("ID"),
                         UUID.fromString(result.getString("uuid")),
                         result.getString("name"),

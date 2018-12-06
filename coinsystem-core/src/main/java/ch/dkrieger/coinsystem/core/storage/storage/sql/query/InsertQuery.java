@@ -66,6 +66,7 @@ public class InsertQuery extends Query{
         return null;
     }
     public int executeAndGetKeyInInt(){
+        System.out.println("test");
         PreparedStatement pstatement = null;
         try {
             pstatement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
@@ -77,9 +78,9 @@ public class InsertQuery extends Query{
             pstatement.executeUpdate();
             ResultSet result = pstatement.getGeneratedKeys();
             if(result != null){
-                if(result.first()) return result.getInt(1);
-                result.close();
+                if(result.next()) return result.getInt(1);
             }
+            if(result != null) result.close();
             pstatement.close();
         }catch (SQLException e) {
             e.printStackTrace();

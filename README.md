@@ -128,6 +128,8 @@ player.getUUID(); //returns the player uuid
 
 player.getID(); //returns the player id
 
+player.getCoins(); //returns the coins amount
+
 player.getColor(); //returns the player color
 
 player.getFirstLogin(); //returns the first login as timestamp

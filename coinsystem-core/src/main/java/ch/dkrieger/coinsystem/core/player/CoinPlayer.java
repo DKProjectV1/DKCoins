@@ -124,8 +124,7 @@ public class CoinPlayer {
 		this.color = color;
 	}
 	public void setColor(String color){
-		if(color == null) return;
-		if(this.color.equals(color)) return;
+		if(color == null || this.color.equals(color)) return;
 		this.color = color;
 		CoinSystem.getInstance().getStorage().updateColor(this.uuid,color);
 	}

@@ -1,11 +1,10 @@
 package ch.dkrieger.coinsystem.bungeecord.event;
 
 import ch.dkrieger.coinsystem.core.event.CoinsUpdateCause;
-import net.md_5.bungee.api.plugin.Event;
 import ch.dkrieger.coinsystem.core.player.CoinPlayer;
+import net.md_5.bungee.api.plugin.Event;
 
 public class ProxiedCoinPlayerCoinsChangeEvent extends Event{
-
 
 	private CoinPlayer coinplayer;
 	private Long oldCoins, newCoins;

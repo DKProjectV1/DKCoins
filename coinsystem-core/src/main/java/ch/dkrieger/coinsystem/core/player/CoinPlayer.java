@@ -1,12 +1,12 @@
 package ch.dkrieger.coinsystem.core.player;
 
-import java.util.UUID;
-
 import ch.dkrieger.coinsystem.core.CoinSystem;
 import ch.dkrieger.coinsystem.core.config.Config;
 import ch.dkrieger.coinsystem.core.event.CoinChangeEventResult;
 import ch.dkrieger.coinsystem.core.event.CoinsUpdateCause;
 import net.md_5.bungee.api.ChatColor;
+
+import java.util.UUID;
 
 public class CoinPlayer {
 	

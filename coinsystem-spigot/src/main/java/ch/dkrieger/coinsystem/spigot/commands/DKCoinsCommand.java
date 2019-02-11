@@ -1,11 +1,10 @@
 package ch.dkrieger.coinsystem.spigot.commands;
 
+import ch.dkrieger.coinsystem.core.manager.MessageManager;
+import ch.dkrieger.coinsystem.spigot.SpigotCoinSystemBootstrap;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-
-import ch.dkrieger.coinsystem.core.manager.MessageManager;
-import ch.dkrieger.coinsystem.spigot.SpigotCoinSystemBootstrap;
 
 public class DKCoinsCommand implements CommandExecutor{
 

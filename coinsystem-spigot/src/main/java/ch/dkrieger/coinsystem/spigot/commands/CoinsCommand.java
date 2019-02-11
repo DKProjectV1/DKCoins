@@ -3,15 +3,14 @@ package ch.dkrieger.coinsystem.spigot.commands;
 import ch.dkrieger.coinsystem.core.CoinSystem;
 import ch.dkrieger.coinsystem.core.config.Config;
 import ch.dkrieger.coinsystem.core.event.CoinsUpdateCause;
+import ch.dkrieger.coinsystem.core.manager.MessageManager;
+import ch.dkrieger.coinsystem.core.manager.PermissionManager;
 import ch.dkrieger.coinsystem.core.player.CoinPlayer;
 import ch.dkrieger.coinsystem.spigot.SpigotCoinSystemBootstrap;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import ch.dkrieger.coinsystem.core.manager.MessageManager;
-import ch.dkrieger.coinsystem.core.manager.PermissionManager;
 
 public class CoinsCommand extends Command{
 

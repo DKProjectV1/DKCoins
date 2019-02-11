@@ -1,11 +1,11 @@
 package ch.dkrieger.coinsystem.core.player;
 
+import ch.dkrieger.coinsystem.core.CoinSystem;
+import ch.dkrieger.coinsystem.core.config.Config;
+
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
-
-import ch.dkrieger.coinsystem.core.CoinSystem;
-import ch.dkrieger.coinsystem.core.config.Config;
 
 public class CoinPlayerManager {
 	

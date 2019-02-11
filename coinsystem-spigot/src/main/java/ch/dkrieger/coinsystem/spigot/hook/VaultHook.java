@@ -1,15 +1,14 @@
 package ch.dkrieger.coinsystem.spigot.hook;
 
-import java.util.List;
-
-import org.bukkit.OfflinePlayer;
-
 import ch.dkrieger.coinsystem.core.manager.MessageManager;
 import ch.dkrieger.coinsystem.core.player.CoinPlayer;
 import ch.dkrieger.coinsystem.core.player.CoinPlayerManager;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
+import org.bukkit.OfflinePlayer;
+
+import java.util.List;
 
 public class VaultHook extends AbstractEconomy{
 

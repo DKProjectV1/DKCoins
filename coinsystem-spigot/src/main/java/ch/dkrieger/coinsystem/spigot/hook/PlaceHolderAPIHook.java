@@ -1,12 +1,11 @@
 package ch.dkrieger.coinsystem.spigot.hook;
 
 import ch.dkrieger.coinsystem.core.CoinSystem;
+import ch.dkrieger.coinsystem.core.player.CoinPlayer;
 import ch.dkrieger.coinsystem.spigot.SpigotCoinSystemBootstrap;
+import me.clip.placeholderapi.external.EZPlaceholderHook;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-
-import ch.dkrieger.coinsystem.core.player.CoinPlayer;
-import me.clip.placeholderapi.external.EZPlaceholderHook;
 
 public class PlaceHolderAPIHook extends EZPlaceholderHook{
 
@@ -15,6 +14,7 @@ public class PlaceHolderAPIHook extends EZPlaceholderHook{
 	}
 	@Override
 	public String onPlaceholderRequest(Player player, String identifier) {
+		if(player == null|| identifier == null) return "PlayerIsNull";
 		if(identifier.equalsIgnoreCase("coins") || identifier.equalsIgnoreCase("coin") || identifier.equalsIgnoreCase("money")){
 			CoinPlayer coinplayer = CoinSystem.getInstance().getPlayerManager().getPlayer(player.getUniqueId());
 			if(coinplayer != null) return SpigotCoinSystemBootstrap.getInstance().format(coinplayer.getCoins());

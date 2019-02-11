@@ -1,20 +1,22 @@
 package ch.dkrieger.coinsystem.spigot;
 
-import java.io.File;
-import java.lang.reflect.Field;
-
 import ch.dkrieger.coinsystem.core.CoinSystem;
 import ch.dkrieger.coinsystem.core.DKCoinsPlatform;
 import ch.dkrieger.coinsystem.core.config.Config;
 import ch.dkrieger.coinsystem.core.event.CoinChangeEventResult;
 import ch.dkrieger.coinsystem.core.event.CoinsUpdateCause;
+import ch.dkrieger.coinsystem.core.manager.MessageManager;
 import ch.dkrieger.coinsystem.core.player.CoinPlayer;
 import ch.dkrieger.coinsystem.core.player.PlayerColor;
+import ch.dkrieger.coinsystem.spigot.commands.CoinsCommand;
+import ch.dkrieger.coinsystem.spigot.commands.DKCoinsCommand;
 import ch.dkrieger.coinsystem.spigot.commands.PayCommand;
 import ch.dkrieger.coinsystem.spigot.event.BukkitCoinPlayerCoinsChangeEvent;
 import ch.dkrieger.coinsystem.spigot.event.BukkitCoinPlayerColorSetEvent;
+import ch.dkrieger.coinsystem.spigot.hook.PlaceHolderAPIHook;
+import ch.dkrieger.coinsystem.spigot.hook.VaultHook;
+import ch.dkrieger.coinsystem.spigot.listeners.PlayerListener;
 import net.milkbowl.vault.economy.Economy;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
@@ -22,12 +24,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import ch.dkrieger.coinsystem.core.manager.MessageManager;
-import ch.dkrieger.coinsystem.spigot.commands.CoinsCommand;
-import ch.dkrieger.coinsystem.spigot.commands.DKCoinsCommand;
-import ch.dkrieger.coinsystem.spigot.hook.PlaceHolderAPIHook;
-import ch.dkrieger.coinsystem.spigot.hook.VaultHook;
-import ch.dkrieger.coinsystem.spigot.listeners.PlayerListener;
+import java.io.File;
+import java.lang.reflect.Field;
 
 public class SpigotCoinSystemBootstrap extends JavaPlugin implements DKCoinsPlatform {
 	
@@ -109,9 +107,15 @@ public class SpigotCoinSystemBootstrap extends JavaPlugin implements DKCoinsPlat
 			System.out.println("["+MessageManager.getInstance().system_name+"] PlaceHolderAPI found");
 			new PlaceHolderAPIHook(this, MessageManager.getInstance().system_name.toLowerCase()).hook();
 		}
-		if(Bukkit.getPluginManager().isPluginEnabled("Vault")){
-			System.out.println("["+MessageManager.getInstance().system_name+"] Vault found");
-			Bukkit.getServer().getServicesManager().register(Economy.class, new VaultHook(), this, ServicePriority.Highest);
+		if(Config.getInstance().hook_vault_enabled){
+			if(Bukkit.getPluginManager().isPluginEnabled("Vault")){
+				ServicePriority priority = ServicePriority.Highest;
+				try{
+					priority = ServicePriority.valueOf(Config.getInstance().hook_vault_priority);
+				}catch (Exception ignored){}
+				System.out.println("["+MessageManager.getInstance().system_name+"] Vault found (priority="+priority.toString()+")");
+				Bukkit.getServer().getServicesManager().register(Economy.class, new VaultHook(), this,priority);
+			}
 		}
 	}
 	public String format(Long coins){

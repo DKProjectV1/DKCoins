@@ -1,8 +1,9 @@
 name: DKCoins
 author: Dkrieger
 description: 
-version: 3.0.5
+version: 3.0.6
 api-version: 1.13
+softdepend: [Vault, PlaceholderAPI]
 
 main: ch.dkrieger.coinsystem.spigot.SpigotCoinSystemBootstrap
 commands:    

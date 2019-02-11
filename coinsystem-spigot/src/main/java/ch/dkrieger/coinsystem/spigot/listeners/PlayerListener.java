@@ -2,16 +2,15 @@ package ch.dkrieger.coinsystem.spigot.listeners;
 
 import ch.dkrieger.coinsystem.core.CoinSystem;
 import ch.dkrieger.coinsystem.core.config.Config;
+import ch.dkrieger.coinsystem.core.manager.MessageManager;
+import ch.dkrieger.coinsystem.core.manager.PermissionManager;
+import ch.dkrieger.coinsystem.core.player.CoinPlayer;
 import ch.dkrieger.coinsystem.spigot.SpigotCoinSystemBootstrap;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
-
-import ch.dkrieger.coinsystem.core.manager.MessageManager;
-import ch.dkrieger.coinsystem.core.manager.PermissionManager;
-import ch.dkrieger.coinsystem.core.player.CoinPlayer;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerListener implements Listener{

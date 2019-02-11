@@ -47,6 +47,9 @@ public class Config extends SimpleConfig{
     public boolean number_formatting_enabled;
     public String number_formatting_symbol;
 
+    public boolean hook_vault_enabled;
+    public String hook_vault_priority;
+
     public Config(DKCoinsPlatform platform) {
         super(new File(platform.getFolder(),"config.yml"));
         this.platform = platform;
@@ -113,6 +116,9 @@ public class Config extends SimpleConfig{
         mm.noperms = mm.prefix+translate(getString("messages.nopermissions"));
         mm.mysql_noconnection = mm.prefix+translate(getString("messages.noconnection"));
         mm.playernotfound = mm.prefix+translate(getString("messages.player.notfound"));
+
+        this.hook_vault_enabled = getBooleanValue("hook.vault.enabled");
+        this.hook_vault_priority = getStringValue("hook.vault.priority");
 
         mm.command_coins_showownmoney = mm.prefix+translate(getString("messages.command.coins"));
         mm.command_coins_showothermoney= mm.prefix+translate(getString("messages.command.coinsothers"));
@@ -191,6 +197,9 @@ public class Config extends SimpleConfig{
         add("permissions.coins.seeothers", "dkcoins.coins.see.others");
         add("permissions.coins.top", "dkcoins.coins.top");
         add("permissions.coins.pay", "dkcoins.coins.pay");
+
+        add("hook.vault.enabled", true);
+        add("hook.vault.priority", "Highest");
 
         add("messages.prefix", "&8» &6DKCoins &8| &f");
         add("messages.nopermissions", "&cYou don't have permissions for this command!");

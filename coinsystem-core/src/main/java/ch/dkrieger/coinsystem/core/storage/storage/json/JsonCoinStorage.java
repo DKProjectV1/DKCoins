@@ -5,13 +5,15 @@ import ch.dkrieger.coinsystem.core.config.Config;
 import ch.dkrieger.coinsystem.core.player.CoinPlayer;
 import ch.dkrieger.coinsystem.core.storage.CoinStorage;
 import ch.dkrieger.coinsystem.core.utils.Document;
-
-import java.io.File;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import com.google.gson.reflect.TypeToken;
 import io.netty.util.internal.ConcurrentSet;
+
+import java.io.File;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /*
  *

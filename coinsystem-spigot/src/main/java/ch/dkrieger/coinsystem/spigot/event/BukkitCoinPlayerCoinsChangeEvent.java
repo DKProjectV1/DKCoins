@@ -1,10 +1,9 @@
 package ch.dkrieger.coinsystem.spigot.event;
 
 import ch.dkrieger.coinsystem.core.event.CoinsUpdateCause;
+import ch.dkrieger.coinsystem.core.player.CoinPlayer;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-
-import ch.dkrieger.coinsystem.core.player.CoinPlayer;
 
 public class BukkitCoinPlayerCoinsChangeEvent extends Event{
 	

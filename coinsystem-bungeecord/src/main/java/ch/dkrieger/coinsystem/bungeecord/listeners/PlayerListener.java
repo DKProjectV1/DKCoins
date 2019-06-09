@@ -33,6 +33,7 @@ public class PlayerListener implements Listener{
 					,System.currentTimeMillis());
 		});
 	}
+
 	@EventHandler
 	public void onLeave(final PlayerDisconnectEvent event){
 		ProxyServer.getInstance().getScheduler().runAsync(BungeeCordCoinSystemBootstrap.getInstance(),()->{

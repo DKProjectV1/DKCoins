@@ -12,6 +12,9 @@ import java.util.List;
 
 public class VaultHook extends AbstractEconomy{
 
+
+
+
 	public EconomyResponse bankBalance(String arg0) {
 		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, MessageManager.getInstance().system_name+" has no bank support");
 	}

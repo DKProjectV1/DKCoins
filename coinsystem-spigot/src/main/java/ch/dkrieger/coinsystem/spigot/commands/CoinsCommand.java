@@ -8,11 +8,17 @@ import ch.dkrieger.coinsystem.core.manager.PermissionManager;
 import ch.dkrieger.coinsystem.core.player.CoinPlayer;
 import ch.dkrieger.coinsystem.spigot.SpigotCoinSystemBootstrap;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.UUID;
+
 public class CoinsCommand extends Command{
+
+	public static DummyAllCoinPlayer DUMMY_ALL_PLAYER = new DummyAllCoinPlayer();
 
 	public CoinsCommand() {
 		super(Config.getInstance().command_name,"Coins command","/"+Config.getInstance().command_name+" <player>",Config.getInstance().command_aliases);
@@ -67,7 +73,7 @@ public class CoinsCommand extends Command{
 			sender.sendMessage(MessageManager.getInstance().command_coins_showothermoney.replace("[player]",coinplayer.getColor()+coinplayer.getName()).replace("[amount]", SpigotCoinSystemBootstrap.getInstance().format(coinplayer.getCoins())));
 		}else if(args.length == 2){
 			if(args[0].equalsIgnoreCase("reset")){
-				CoinPlayer coinplayer = CoinSystem.getInstance().getPlayerManager().getPlayer(args[1]);
+				CoinPlayer coinplayer = getCoinPlayer(sender,args[1]);
 				if(coinplayer == null){
 					sender.sendMessage(MessageManager.getInstance().playernotfound.replace("[player]",Config.getInstance().defaultColor+args[0]));
 					return true;
@@ -116,7 +122,7 @@ public class CoinsCommand extends Command{
 				sendHelp(sender);
 				return true;
 			}else if(args[0].equalsIgnoreCase("set")){
-				CoinPlayer coinplayer = CoinSystem.getInstance().getPlayerManager().getPlayer(args[1]);
+				CoinPlayer coinplayer = getCoinPlayer(sender,args[1]);
 				if(coinplayer == null){
 					sender.sendMessage(MessageManager.getInstance().playernotfound.replace("[player]",Config.getInstance().defaultColor+args[0]));
 					return true;
@@ -132,7 +138,7 @@ public class CoinsCommand extends Command{
 				Player player = Bukkit.getPlayer(args[1]);
 				if(player != null) player.sendMessage(MessageManager.getInstance().command_coins_set_receiver.replace("[amount]", SpigotCoinSystemBootstrap.getInstance().format(amount)));
 			}else if(args[0].equalsIgnoreCase("add")){
-				CoinPlayer coinplayer = CoinSystem.getInstance().getPlayerManager().getPlayer(args[1]);
+				CoinPlayer coinplayer = getCoinPlayer(sender,args[1]);
 				if(coinplayer == null){
 					sender.sendMessage(MessageManager.getInstance().playernotfound.replace("[player]",Config.getInstance().defaultColor+args[0]));
 					return true;
@@ -148,7 +154,7 @@ public class CoinsCommand extends Command{
 				Player player = Bukkit.getPlayer(args[1]);
 				if(player != null) player.sendMessage(MessageManager.getInstance().command_coins_add_receiver.replace("[amount]", SpigotCoinSystemBootstrap.getInstance().format(amount)));
 			}else if(args[0].equalsIgnoreCase("remove")){
-				CoinPlayer coinplayer = CoinSystem.getInstance().getPlayerManager().getPlayer(args[1]);
+				CoinPlayer coinplayer = getCoinPlayer(sender,args[1]);
 				if(coinplayer == null){
 					sender.sendMessage(MessageManager.getInstance().playernotfound.replace("[player]", Config.getInstance().defaultColor+args[0]));
 					return true;
@@ -157,7 +163,7 @@ public class CoinsCommand extends Command{
 					sendHelp(sender);
 					return true;
 				}
-				Long amount = Long.valueOf(args[2]);
+				long amount = Long.valueOf(args[2]);
 				if(amount < 1) amount = 1L;
 				if(coinplayer.hasCoins(amount)){
 					coinplayer.removeCoins(amount,CoinsUpdateCause.ADMIN);
@@ -169,8 +175,31 @@ public class CoinsCommand extends Command{
 		}else sendHelp(sender);
 		return false;
 	}
-	private void
-	sendHelp(CommandSender sender){
+
+	private CoinPlayer getCoinPlayer(CommandSender sender,String name){
+		if(name.equalsIgnoreCase("@p")){
+			Location location;
+			if(sender instanceof BlockCommandSender) location = ((BlockCommandSender) sender).getBlock().getLocation();
+			else if(sender instanceof Player) location = ((Player) sender).getLocation();
+			else return null;
+			Player nearest = null;
+			double nearestDistance = 0L;
+			for(Player player : Bukkit.getOnlinePlayers()){
+				if(player != sender && player.getLocation().getWorld().equals(location.getWorld())){
+					double distance = player.getLocation().distance(location);
+					if(distance < nearestDistance){
+						nearestDistance = distance;
+						nearest = player;
+					}
+				}
+			}
+			return nearest!=null?CoinSystem.getInstance().getPlayerManager().getPlayer(nearest.getUniqueId()):null;
+		}else if(name.equalsIgnoreCase("@a") || name.equalsIgnoreCase("@all")){
+			return DUMMY_ALL_PLAYER;
+		}else return CoinSystem.getInstance().getPlayerManager().getPlayer(name);
+	}
+
+	private void sendHelp(CommandSender sender){
 		sender.sendMessage(MessageManager.getInstance().command_coins_help_header);
 		sender.sendMessage(MessageManager.getInstance().command_coins_help_coins);
 		if(sender.hasPermission(PermissionManager.getInstance().command_coins_top)){
@@ -186,12 +215,67 @@ public class CoinsCommand extends Command{
 			sender.sendMessage(MessageManager.getInstance().command_coins_help_reset);
 		}
 	}
-	private Boolean isNumber(String value){
+	private boolean isNumber(String value){
 		try{
 			int number = Integer.parseInt(value);
 			return true; 
 		}catch(NumberFormatException e) {
 		    return false;
 		}
+	}
+
+	public static class DummyAllCoinPlayer extends CoinPlayer{
+
+		public DummyAllCoinPlayer() {
+			super(-30,UUID.randomUUID(),"All","§4",0L,0L, 0L);
+		}
+
+		@Override
+		public Boolean hasCoins(long coins) {
+			return true;
+		}
+
+		@Override
+		public void addCoins(long coins, CoinsUpdateCause cause, String message) {
+			for(Player player : Bukkit.getOnlinePlayers()){
+				CoinPlayer coinPlayer = CoinSystem.getInstance().getPlayerManager().getPlayer(player.getUniqueId());
+				if(coinPlayer != null){
+					player.sendMessage(MessageManager.getInstance().command_coins_add_receiver.replace("[amount]", SpigotCoinSystemBootstrap.getInstance().format(coins)));
+					coinPlayer.addCoins(coins, cause, message);
+				}
+			}
+		}
+
+		@Override
+		public void removeCoins(long coins, CoinsUpdateCause cause, String message) {
+			for(Player player : Bukkit.getOnlinePlayers()){
+				CoinPlayer coinPlayer = CoinSystem.getInstance().getPlayerManager().getPlayer(player.getUniqueId());
+				if(coinPlayer != null){
+					player.sendMessage(MessageManager.getInstance().command_coins_remove_receiver.replace("[amount]", SpigotCoinSystemBootstrap.getInstance().format(coins)));
+					if(coinPlayer.hasCoins(coins))coinPlayer.removeCoins(coins, cause, message);
+				}
+			}
+		}
+
+		@Override
+		public void setCoins(long coins, CoinsUpdateCause cause, String message) {
+			for(Player player : Bukkit.getOnlinePlayers()){
+				CoinPlayer coinPlayer = CoinSystem.getInstance().getPlayerManager().getPlayer(player.getUniqueId());
+				if(coinPlayer != null){
+					player.sendMessage(MessageManager.getInstance().command_coins_set_receiver.replace("[amount]", SpigotCoinSystemBootstrap.getInstance().format(coins)));
+					coinPlayer.setCoins(coins, cause, message);
+				}
+			}
+		}
+		@Override
+		public void setColor(String color) {
+			setColorSimpled(color);
+		}
+
+		@Override
+		public void updateInfos(String name, String color, long lastLogin) {
+			throw new UnsupportedOperationException("@All dummy player is only update able");
+		}
+
 	}
 }

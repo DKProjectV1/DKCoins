@@ -27,7 +27,7 @@ public class CoinSystem {
 
     public CoinSystem(DKCoinsPlatform platform) {
         instance = this;
-        this.version = "3.0.6";
+        this.version = "3.1.0";
         this.platform = platform;
 
         new MessageManager("DKCoins");

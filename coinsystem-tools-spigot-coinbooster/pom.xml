@@ -5,7 +5,7 @@
     <parent>
         <artifactId>CoinSystem</artifactId>
         <groupId>ch.dkrieger.coinsystem</groupId>
-        <version>3.0.6</version>
+        <version>3.1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -35,12 +35,12 @@
         <dependency>
             <groupId>ch.dkrieger.coinsystem.core</groupId>
             <artifactId>coinsystem-core</artifactId>
-            <version>3.0.6</version>
+            <version>3.1.0</version>
         </dependency>
         <dependency>
             <groupId>ch.dkrieger.coinsystem.spigot</groupId>
             <artifactId>coinsystem-spigot</artifactId>
-            <version>3.0.6</version>
+            <version>3.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.bukkit</groupId>

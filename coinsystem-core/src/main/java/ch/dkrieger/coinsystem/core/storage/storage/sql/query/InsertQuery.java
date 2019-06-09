@@ -66,7 +66,6 @@ public class InsertQuery extends Query{
         return null;
     }
     public int executeAndGetKeyInInt(){
-        System.out.println("test");
         PreparedStatement pstatement = null;
         try {
             pstatement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);

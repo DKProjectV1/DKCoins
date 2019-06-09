@@ -105,7 +105,7 @@ public class SpigotCoinSystemBootstrap extends JavaPlugin implements DKCoinsPlat
 	private void hook(){
 		if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
 			System.out.println("["+MessageManager.getInstance().system_name+"] PlaceHolderAPI found");
-			new PlaceHolderAPIHook(this, MessageManager.getInstance().system_name.toLowerCase()).hook();
+			new PlaceHolderAPIHook().register();
 		}
 		if(Config.getInstance().hook_vault_enabled){
 			if(Bukkit.getPluginManager().isPluginEnabled("Vault")){

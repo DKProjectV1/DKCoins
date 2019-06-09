@@ -1,17 +1,34 @@
 package ch.dkrieger.coinsystem.spigot.hook;
 
 import ch.dkrieger.coinsystem.core.CoinSystem;
+import ch.dkrieger.coinsystem.core.manager.MessageManager;
 import ch.dkrieger.coinsystem.core.player.CoinPlayer;
 import ch.dkrieger.coinsystem.spigot.SpigotCoinSystemBootstrap;
-import me.clip.placeholderapi.external.EZPlaceholderHook;
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
-public class PlaceHolderAPIHook extends EZPlaceholderHook{
+public class PlaceHolderAPIHook extends PlaceholderExpansion {
 
-	public PlaceHolderAPIHook(Plugin plugin, String identifier) {
-		super(plugin, identifier);
+	@Override
+	public String getIdentifier() {
+		return MessageManager.getInstance().system_name.toLowerCase();
 	}
+
+	@Override
+	public String getPlugin() {
+		return MessageManager.getInstance().system_name;
+	}
+
+	@Override
+	public String getAuthor() {
+		return "Dkrieger";
+	}
+
+	@Override
+	public String getVersion() {
+		return CoinSystem.getInstance().getVersion();
+	}
+
 	@Override
 	public String onPlaceholderRequest(Player player, String identifier) {
 		if(player == null|| identifier == null) return "PlayerIsNull";

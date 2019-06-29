@@ -20,7 +20,7 @@ public class BukkitCoinPlayerColorSetEvent extends Event {
     private Player bukkitPlayer;
 
     public BukkitCoinPlayerColorSetEvent(String color, CoinPlayer player, Player bukkitPlayer) {
-        super(true);
+        super(Thread.currentThread().getId() != 1);
         this.color = color;
         this.player = player;
         this.bukkitPlayer = bukkitPlayer;

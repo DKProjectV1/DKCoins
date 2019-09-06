@@ -60,6 +60,7 @@ public class DeleteQuery extends Query {
             }
             pstatement.executeUpdate();
             pstatement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

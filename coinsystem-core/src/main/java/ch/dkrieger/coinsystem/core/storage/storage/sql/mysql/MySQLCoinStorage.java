@@ -4,6 +4,7 @@ import ch.dkrieger.coinsystem.core.config.Config;
 import ch.dkrieger.coinsystem.core.manager.MessageManager;
 import ch.dkrieger.coinsystem.core.storage.storage.sql.SQLCoinStorage;
 import ch.dkrieger.coinsystem.core.storage.storage.sql.table.Table;
+import com.zaxxer.hikari.HikariConfig;
 
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -16,7 +17,7 @@ import java.sql.SQLException;
  *
  */
 
-public class MySQLCoinStorage extends SQLCoinStorage implements Runnable {
+public class MySQLCoinStorage extends SQLCoinStorage {
 
 	public MySQLCoinStorage(Config config) {
         super(config);
@@ -30,19 +31,14 @@ public class MySQLCoinStorage extends SQLCoinStorage implements Runnable {
 		}
 	}
     @Override
-    public void connect(Config config) throws SQLException {
-	    setConnection(DriverManager.getConnection("jdbc:mysql://"+config.host+":"+config.port+"/"+config.database+
-                "?autoReconnect=true&allowMultiQueries=true&reconnectAtTxEnd=true",config.user, config.password));
+    public void connect(Config pluginConfig) throws SQLException {
+		HikariConfig config = new HikariConfig();
+		config.setUsername(pluginConfig.user);
+		config.setPassword(pluginConfig.password);
+		config.setJdbcUrl("jdbc:mysql://"+pluginConfig.host+":"+pluginConfig.port+"/"+pluginConfig.database);
+		setDataSource(config);
     }
 
-	public void reconnect() {
-		disconnect();
-		connect();
-	}
-	@Override
-	public void run() {
-		reconnect();
-	}
 	@Override
 	public void createTable(Table table) {
 		table.create()
@@ -55,14 +51,5 @@ public class MySQLCoinStorage extends SQLCoinStorage implements Runnable {
 				.create("`coins` int(200) NOT NULL")
 				.create("PRIMARY KEY (`ID`)")
 				.execute();
-		try{
-			DatabaseMetaData metadata = getConnection().getMetaData();
-			ResultSet resultSet = metadata.getColumns(null, null, table.getName(), "ip");
-			if(resultSet.next()){
-				System.out.println(MessageManager.getInstance().system_prefix+" translating mysql table from v2.x.x to v3.1.3");
-				table.query().execute("ALTER TABLE "+table.getName()+" DROP ip;");
-				table.update().set("firstlogin",System.currentTimeMillis()).execute();
-			}
-		}catch (Exception exception){}
 	}
 }

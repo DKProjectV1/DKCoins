@@ -33,6 +33,7 @@ public class CustomQuery extends Query{
             }
             pstatement.executeUpdate();
             pstatement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -58,6 +59,7 @@ public class CustomQuery extends Query{
         }
         pstatement.executeUpdate();
         pstatement.close();
+        connection.close();
     }
     public void executeWithOutError(String query){
         try{ executeSave(query);
@@ -65,5 +67,6 @@ public class CustomQuery extends Query{
     }
     public void close() throws SQLException{
         if(pstatement != null)  pstatement.close();
+        if(connection != null) connection.close();
     }
 }

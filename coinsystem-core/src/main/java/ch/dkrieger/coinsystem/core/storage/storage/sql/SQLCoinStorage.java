@@ -1,5 +1,6 @@
 package ch.dkrieger.coinsystem.core.storage.storage.sql;
 
+import ch.dkrieger.coinsystem.core.CoinSystem;
 import ch.dkrieger.coinsystem.core.config.Config;
 import ch.dkrieger.coinsystem.core.manager.MessageManager;
 import ch.dkrieger.coinsystem.core.player.CoinPlayer;
@@ -8,7 +9,10 @@ import ch.dkrieger.coinsystem.core.storage.storage.sql.query.CustomQuery;
 import ch.dkrieger.coinsystem.core.storage.storage.sql.query.SelectQuery;
 import ch.dkrieger.coinsystem.core.storage.storage.sql.sqlite.SQLiteCoinStorage;
 import ch.dkrieger.coinsystem.core.storage.storage.sql.table.Table;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,7 +29,7 @@ import java.util.UUID;
 public abstract class SQLCoinStorage implements CoinStorage {
 
     private Config config;
-    private Connection connection;
+    private HikariDataSource dataSource;
     private Table table;
 
     public SQLCoinStorage(Config config) {
@@ -34,18 +38,29 @@ public abstract class SQLCoinStorage implements CoinStorage {
     @Override
     public boolean isConnected() {
         try{
-            return connection != null && !(connection.isClosed()) ;
+            return dataSource != null && !(dataSource.isClosed()) ;
         }catch (Exception exception){}
         return false;
     }
     public Connection getConnection() {
-        return connection;
+        try {
+            return dataSource.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     public Table getTable() {
         return table;
     }
-    public void setConnection(Connection connection) {
-        this.connection = connection;
+    public void setDataSource(HikariConfig config) {
+        Config pluginConfig = CoinSystem.getInstance().getConfig();
+
+        config.setMaximumPoolSize(pluginConfig.maxConnections);
+        config.setPoolName("DKCoins");
+        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.addDataSourceProperty("allowMultiQueries", "true");
+        this.dataSource = new HikariDataSource(config);
     }
     @Override
     public boolean connect() {
@@ -61,7 +76,6 @@ public abstract class SQLCoinStorage implements CoinStorage {
                 System.out.println(MessageManager.getInstance().system_prefix+"Could not connect to SQL server at "+config.host+":"+config.port);
                 System.out.println(MessageManager.getInstance().system_prefix+"Error: "+exception.getMessage());
                 System.out.println(MessageManager.getInstance().system_prefix+"Check your login data in the config.");
-                connection = null;
                 return false;
             }
         }
@@ -70,13 +84,8 @@ public abstract class SQLCoinStorage implements CoinStorage {
     @Override
     public void disconnect() {
         if(isConnected()){
-            try {
-                connection.close();
-                connection = null;
-                System.out.println(MessageManager.getInstance().system_name+"successful disconnected from sql server at "+this.config.host+":"+this.config.port);
-            }catch (SQLException exception) {
-                connection = null;
-            }
+            dataSource.close();
+            System.out.println(MessageManager.getInstance().system_name+"successful disconnected from sql server at "+this.config.host+":"+this.config.port);
         }
     }
     @Override

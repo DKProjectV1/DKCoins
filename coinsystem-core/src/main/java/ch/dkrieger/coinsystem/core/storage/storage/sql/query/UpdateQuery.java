@@ -41,6 +41,7 @@ public class UpdateQuery extends Query {
             }
             pstatement.executeUpdate();
             pstatement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

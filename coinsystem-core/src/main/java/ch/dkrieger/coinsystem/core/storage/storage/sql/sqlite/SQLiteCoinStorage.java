@@ -10,6 +10,7 @@ import ch.dkrieger.coinsystem.core.config.Config;
 import ch.dkrieger.coinsystem.core.manager.MessageManager;
 import ch.dkrieger.coinsystem.core.storage.storage.sql.SQLCoinStorage;
 import ch.dkrieger.coinsystem.core.storage.storage.sql.table.Table;
+import com.zaxxer.hikari.HikariConfig;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +30,9 @@ public class SQLiteCoinStorage extends SQLCoinStorage {
         } catch (IOException exception) {
             System.err.println("Could not create SQLite database file ("+exception.getMessage()+").");
         }
-        setConnection(DriverManager.getConnection("jdbc:sqlite:"+config.dataFolder+"players.db"));
+        HikariConfig hikariConfig = new HikariConfig();
+        hikariConfig.setJdbcUrl("jdbc:sqlite:"+config.dataFolder+"players.db");
+        setDataSource(hikariConfig);
     }
     @Override
     public void loadDriver() {

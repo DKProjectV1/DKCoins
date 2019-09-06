@@ -28,6 +28,7 @@ public class CreateQuery extends Query {
             statement = connection.createStatement();
             statement.execute(query);
             statement.close();
+            connection.close();
         } catch(SQLException exception){
             exception.printStackTrace();
         }

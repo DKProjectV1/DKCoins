@@ -40,6 +40,7 @@ public class InsertQuery extends Query{
             }
             pstatement.executeUpdate();
             pstatement.close();
+            connection.close();
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -60,6 +61,7 @@ public class InsertQuery extends Query{
                 result.close();
             }
             pstatement.close();
+            connection.close();
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -81,6 +83,7 @@ public class InsertQuery extends Query{
             }
             if(result != null) result.close();
             pstatement.close();
+            connection.close();
         }catch (SQLException e) {
             e.printStackTrace();
         }

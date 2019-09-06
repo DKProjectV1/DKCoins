@@ -1,5 +1,6 @@
 package ch.dkrieger.coinsystem.core.storage.storage.sql.query;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -38,8 +39,9 @@ public class QueryBuilder {
     public void execute(){
         PreparedStatement pstatement;
         if(querys.size() <= 0) return;
+        Connection connection = querys.get(0).getConnection();
         try {
-            pstatement = querys.get(0).getConnection().prepareStatement(query);
+            pstatement = connection.prepareStatement(query);
             int i = 1;
             for(Query query : this.querys){
                 for(Object object : query.getValues()) {
@@ -51,6 +53,16 @@ public class QueryBuilder {
             pstatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            for (Query query1 : querys) {
+                if(query1.getConnection() != null) {
+                    try {
+                        query1.getConnection().close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
     }
     public void buildAndExecute(){

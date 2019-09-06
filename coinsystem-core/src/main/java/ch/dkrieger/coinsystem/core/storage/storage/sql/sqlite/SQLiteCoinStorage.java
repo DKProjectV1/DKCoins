@@ -14,8 +14,6 @@ import com.zaxxer.hikari.HikariConfig;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class SQLiteCoinStorage extends SQLCoinStorage {
 
@@ -23,7 +21,7 @@ public class SQLiteCoinStorage extends SQLCoinStorage {
         super(config);
     }
     @Override
-    public void connect(Config config) throws SQLException {
+    public void connect(Config config) {
         new File(config.dataFolder).mkdirs();
         try {
             new File(config.dataFolder,"players.db").createNewFile();

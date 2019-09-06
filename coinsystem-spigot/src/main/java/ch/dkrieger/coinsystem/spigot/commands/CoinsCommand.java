@@ -1,7 +1,6 @@
 package ch.dkrieger.coinsystem.spigot.commands;
 
 import ch.dkrieger.coinsystem.core.CoinSystem;
-import ch.dkrieger.coinsystem.core.config.Config;
 import ch.dkrieger.coinsystem.core.event.CoinsUpdateCause;
 import ch.dkrieger.coinsystem.core.manager.MessageManager;
 import ch.dkrieger.coinsystem.core.manager.PermissionManager;
@@ -21,7 +20,7 @@ public class CoinsCommand extends Command{
 	public static DummyAllCoinPlayer DUMMY_ALL_PLAYER = new DummyAllCoinPlayer();
 
 	public CoinsCommand() {
-		super(Config.getInstance().command_name,"Coins command","/"+Config.getInstance().command_name+" <player>",Config.getInstance().command_aliases);
+		super(CoinSystem.getInstance().getConfig().command_name,"Coins command","/"+CoinSystem.getInstance().getConfig().command_name+" <player>",CoinSystem.getInstance().getConfig().command_aliases);
 	}
 
 	@Override
@@ -59,8 +58,9 @@ public class CoinsCommand extends Command{
 				}else if(args[0].equalsIgnoreCase("help")){
 					sendHelp(sender);
 					return;
-				}else if(args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl")){
-					if(sender.hasPermission(PermissionManager.getInstance().command_coins_admin)) CoinSystem.getInstance().reload();
+				}else if(args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl")
+						&& sender.hasPermission(PermissionManager.getInstance().command_coins_admin)){
+					CoinSystem.getInstance().reload();
 				}
 				if(!sender.hasPermission(PermissionManager.getInstance().command_coins_others)){
 					Player p = (Player) sender;
@@ -69,7 +69,7 @@ public class CoinsCommand extends Command{
 				}
 				CoinPlayer coinplayer = CoinSystem.getInstance().getPlayerManager().getPlayer(args[0]);
 				if(coinplayer == null){
-					sender.sendMessage(MessageManager.getInstance().playernotfound.replace("[player]",Config.getInstance().defaultColor+args[0]));
+					sender.sendMessage(MessageManager.getInstance().playernotfound.replace("[player]",CoinSystem.getInstance().getConfig().defaultColor+args[0]));
 					return;
 				}
 				sender.sendMessage(MessageManager.getInstance().command_coins_showothermoney.replace("[player]",coinplayer.getColor()+coinplayer.getName()).replace("[amount]", SpigotCoinSystemBootstrap.getInstance().format(coinplayer.getCoins())));
@@ -77,13 +77,13 @@ public class CoinsCommand extends Command{
 				if(args[0].equalsIgnoreCase("reset")){
 					CoinPlayer coinplayer = getCoinPlayer(sender,args[1]);
 					if(coinplayer == null){
-						sender.sendMessage(MessageManager.getInstance().playernotfound.replace("[player]",Config.getInstance().defaultColor+args[0]));
+						sender.sendMessage(MessageManager.getInstance().playernotfound.replace("[player]",CoinSystem.getInstance().getConfig().defaultColor+args[0]));
 						return;
 					}
-					coinplayer.setCoins(Config.getInstance().system_player_startcoin,CoinsUpdateCause.ADMIN);
-					sender.sendMessage(MessageManager.getInstance().command_coins_set_sender.replace("[player]",coinplayer.getColor()+coinplayer.getName()).replace("[amount]", SpigotCoinSystemBootstrap.getInstance().format(Config.getInstance().system_player_startcoin)));
+					coinplayer.setCoins(CoinSystem.getInstance().getConfig().system_player_startcoin,CoinsUpdateCause.ADMIN);
+					sender.sendMessage(MessageManager.getInstance().command_coins_set_sender.replace("[player]",coinplayer.getColor()+coinplayer.getName()).replace("[amount]", SpigotCoinSystemBootstrap.getInstance().format(CoinSystem.getInstance().getConfig().system_player_startcoin)));
 					Player player = Bukkit.getPlayer(args[1]);
-					if(player != null) player.sendMessage(MessageManager.getInstance().command_coins_set_receiver.replace("[amount]",""+Config.getInstance().system_player_startcoin));
+					if(player != null) player.sendMessage(MessageManager.getInstance().command_coins_set_receiver.replace("[amount]",""+CoinSystem.getInstance().getConfig().system_player_startcoin));
 				}else sendHelp(sender);
 			}else if(args.length == 3){
 				if(args[0].equalsIgnoreCase("pay")){
@@ -97,7 +97,7 @@ public class CoinsCommand extends Command{
 					}
 					CoinPlayer coinplayer = CoinSystem.getInstance().getPlayerManager().getPlayer(args[1]);
 					if(coinplayer == null){
-						sender.sendMessage(MessageManager.getInstance().playernotfound.replace("[player]",Config.getInstance().defaultColor+args[0]));
+						sender.sendMessage(MessageManager.getInstance().playernotfound.replace("[player]",CoinSystem.getInstance().getConfig().defaultColor+args[0]));
 						return;
 					}
 					if(!isNumber(args[2])){
@@ -122,11 +122,10 @@ public class CoinsCommand extends Command{
 					if(player != null) player.sendMessage(MessageManager.getInstance().command_coins_pay_receiver.replace("[amount]", SpigotCoinSystemBootstrap.getInstance().format(amount)).replace("[player]",coinplayer.getColor()+coinsender.getName()));
 				}else if(!sender.hasPermission(PermissionManager.getInstance().command_coins_admin)){
 					sendHelp(sender);
-					return;
 				}else if(args[0].equalsIgnoreCase("set")){
 					CoinPlayer coinplayer = getCoinPlayer(sender,args[1]);
 					if(coinplayer == null){
-						sender.sendMessage(MessageManager.getInstance().playernotfound.replace("[player]",Config.getInstance().defaultColor+args[0]));
+						sender.sendMessage(MessageManager.getInstance().playernotfound.replace("[player]",CoinSystem.getInstance().getConfig().defaultColor+args[0]));
 						return;
 					}
 					if(!isNumber(args[2])){
@@ -142,7 +141,7 @@ public class CoinsCommand extends Command{
 				}else if(args[0].equalsIgnoreCase("add")){
 					CoinPlayer coinplayer = getCoinPlayer(sender,args[1]);
 					if(coinplayer == null){
-						sender.sendMessage(MessageManager.getInstance().playernotfound.replace("[player]",Config.getInstance().defaultColor+args[0]));
+						sender.sendMessage(MessageManager.getInstance().playernotfound.replace("[player]",CoinSystem.getInstance().getConfig().defaultColor+args[0]));
 						return;
 					}
 					if(!isNumber(args[2])){
@@ -158,7 +157,7 @@ public class CoinsCommand extends Command{
 				}else if(args[0].equalsIgnoreCase("remove")){
 					CoinPlayer coinplayer = getCoinPlayer(sender,args[1]);
 					if(coinplayer == null){
-						sender.sendMessage(MessageManager.getInstance().playernotfound.replace("[player]", Config.getInstance().defaultColor+args[0]));
+						sender.sendMessage(MessageManager.getInstance().playernotfound.replace("[player]", CoinSystem.getInstance().getConfig().defaultColor+args[0]));
 						return;
 					}
 					if(!isNumber(args[2])){
@@ -188,7 +187,7 @@ public class CoinsCommand extends Command{
 			Player nearest = null;
 			double nearestDistance = 0L;
 			for(Player player : Bukkit.getOnlinePlayers()){
-				if(player != sender && player.getLocation().getWorld().equals(location.getWorld())){
+				if(player != sender && player.getLocation().getWorld() == location.getWorld()){
 					double distance = player.getLocation().distance(location);
 					if(distance < nearestDistance){
 						nearestDistance = distance;
@@ -221,7 +220,7 @@ public class CoinsCommand extends Command{
 
 	private boolean isNumber(String value){
 		try{
-			int number = Integer.parseInt(value);
+			Integer.parseInt(value);
 			return true; 
 		}catch(NumberFormatException e) {
 		    return false;
@@ -271,6 +270,7 @@ public class CoinsCommand extends Command{
 				}
 			}
 		}
+
 		@Override
 		public void setColor(String color) {
 			setColorSimpled(color);

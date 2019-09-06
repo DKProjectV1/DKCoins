@@ -2,7 +2,6 @@ package ch.dkrieger.coinsystem.spigot;
 
 import ch.dkrieger.coinsystem.core.CoinSystem;
 import ch.dkrieger.coinsystem.core.DKCoinsPlatform;
-import ch.dkrieger.coinsystem.core.config.Config;
 import ch.dkrieger.coinsystem.core.event.CoinChangeEventResult;
 import ch.dkrieger.coinsystem.core.event.CoinsUpdateCause;
 import ch.dkrieger.coinsystem.core.manager.MessageManager;
@@ -48,7 +47,7 @@ public class SpigotCoinSystemBootstrap extends JavaPlugin implements DKCoinsPlat
 
 		getCommand("dkcoins").setExecutor(new DKCoinsCommand());
 		registerCommand(new CoinsCommand());
-		if(Config.getInstance().command_pay_enabled) registerCommand(new PayCommand());
+		if(CoinSystem.getInstance().getConfig().command_pay_enabled) registerCommand(new PayCommand());
 		hook();
 	}
 
@@ -96,7 +95,7 @@ public class SpigotCoinSystemBootstrap extends JavaPlugin implements DKCoinsPlat
 		return new CoinChangeEventResult(event.isCancelled(),event.getNewCoins());
 	}
 
-	public void registerCommand(Command command){
+	private void registerCommand(Command command){
 		CommandMap cmap = null;
 		try{
 			final Field field = Bukkit.getServer().getClass().getDeclaredField("commandMap");
@@ -113,20 +112,18 @@ public class SpigotCoinSystemBootstrap extends JavaPlugin implements DKCoinsPlat
 			System.out.println("["+MessageManager.getInstance().system_name+"] PlaceHolderAPI found");
 			new PlaceHolderAPIHook().register();
 		}
-		if(Config.getInstance().hook_vault_enabled){
-			if(Bukkit.getPluginManager().isPluginEnabled("Vault")){
-				ServicePriority priority = ServicePriority.Highest;
-				try{
-					priority = ServicePriority.valueOf(Config.getInstance().hook_vault_priority);
-				}catch (Exception ignored){}
-				System.out.println("["+MessageManager.getInstance().system_name+"] Vault found (priority="+priority.toString()+")");
-				Bukkit.getServer().getServicesManager().register(Economy.class, new VaultHook(), this,priority);
-			}
+		if(CoinSystem.getInstance().getConfig().hook_vault_enabled && Bukkit.getPluginManager().isPluginEnabled("Vault")){
+			ServicePriority priority = ServicePriority.Highest;
+			try{
+				priority = ServicePriority.valueOf(CoinSystem.getInstance().getConfig().hook_vault_priority);
+			}catch (Exception ignored){}
+			System.out.println("["+MessageManager.getInstance().system_name+"] Vault found (priority="+priority.toString()+")");
+			Bukkit.getServer().getServicesManager().register(Economy.class, new VaultHook(), this,priority);
 		}
 	}
 
 	public String format(long coins){
-		if(!Config.getInstance().number_formatting_enabled) return ""+coins;
+		if(!CoinSystem.getInstance().getConfig().number_formatting_enabled) return ""+coins;
 		String number = String.valueOf(coins);
 		if(number.length() > 3){
 			int charposition = 0;
@@ -136,13 +133,13 @@ public class SpigotCoinSystemBootstrap extends JavaPlugin implements DKCoinsPlat
 				formatted+=chars[i];
 				if(charposition == 2){
 					charposition = 0;
-					formatted +=Config.getInstance().number_formatting_symbol;
+					formatted +=CoinSystem.getInstance().getConfig().number_formatting_symbol;
 				}else charposition++;
 			}
 			String finish = "";
 			char[] finished = formatted.toCharArray();
 			for(int i = finished.length-1;i > -1;i--) finish += finished[i];
-			if(finish.startsWith(Config.getInstance().number_formatting_symbol)) finish = finish.substring(1);
+			if(finish.startsWith(CoinSystem.getInstance().getConfig().number_formatting_symbol)) finish = finish.substring(1);
 			return finish;
 		}
 		return ""+coins;

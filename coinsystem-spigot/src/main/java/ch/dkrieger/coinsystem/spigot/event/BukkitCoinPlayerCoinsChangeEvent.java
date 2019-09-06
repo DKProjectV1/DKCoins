@@ -12,7 +12,8 @@ public class BukkitCoinPlayerCoinsChangeEvent extends Event{
 
 	private final CoinPlayer coinplayer;
 	private String message;
-	private long oldCoins, newCoins;
+	private long oldCoins;
+	private long newCoins;
 	private CoinsUpdateCause cause;
 	private boolean cancelled;
 	

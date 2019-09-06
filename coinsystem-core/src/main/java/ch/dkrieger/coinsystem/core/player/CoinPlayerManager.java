@@ -1,7 +1,6 @@
 package ch.dkrieger.coinsystem.core.player;
 
 import ch.dkrieger.coinsystem.core.CoinSystem;
-import ch.dkrieger.coinsystem.core.config.Config;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -38,8 +37,8 @@ public class CoinPlayerManager {
 	}
 
 	public CoinPlayer createPlayer(String name, UUID uuid){
-		CoinPlayer player = new CoinPlayer(-1,uuid,name,Config.getInstance().defaultColor,System.currentTimeMillis()
-				,System.currentTimeMillis(),Config.getInstance().system_player_startcoin);
+		CoinPlayer player = new CoinPlayer(-1,uuid,name,CoinSystem.getInstance().getConfig().defaultColor,System.currentTimeMillis()
+				,System.currentTimeMillis(),CoinSystem.getInstance().getConfig().system_player_startcoin);
 		player = CoinSystem.getInstance().getStorage().createPlayer(player);
 		return player;
 	}

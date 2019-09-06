@@ -4,6 +4,7 @@
 
 package ch.dkrieger.coinsystem.core.config;
 
+import ch.dkrieger.coinsystem.core.CoinSystem;
 import ch.dkrieger.coinsystem.core.DKCoinsPlatform;
 import ch.dkrieger.coinsystem.core.manager.MessageManager;
 import ch.dkrieger.coinsystem.core.manager.PermissionManager;
@@ -19,9 +20,8 @@ import java.util.List;
 
 public class Config extends SimpleConfig{
 
-    private static Config instance;
+    private final DKCoinsPlatform platform;
 
-    public final DKCoinsPlatform platform;
     public StorageType storageType;
     public String host, port, user, password, database, mongoDbAuthenticationDatabase, dataFolder, defaultColor;
     public int maxConnections;
@@ -54,9 +54,9 @@ public class Config extends SimpleConfig{
     public Config(DKCoinsPlatform platform) {
         super(new File(platform.getFolder(),"config.yml"));
         this.platform = platform;
-        instance = this;
         loadConfig();
     }
+
     @Override
     public void onLoad() {
         this.dataFolder = getStringValue("storage.folder");
@@ -238,13 +238,17 @@ public class Config extends SimpleConfig{
     public String getString(String path){
         return getStringValue(path);
     }
+
     public String translate(String value){
         return ChatColor.translateAlternateColorCodes('&',value);
     }
+
     public void add(String path, Object value){
         addValue(path,value);
     }
+
+    @Deprecated
     public static Config getInstance() {
-        return instance;
+        return CoinSystem.getInstance().getConfig();
     }
 }

@@ -16,10 +16,12 @@ public class InsertQuery extends Query{
     public InsertQuery(Connection connection, String query) {
         super(connection, query);
     }
+
     public InsertQuery insert(String insert) {
         query += "`"+insert+"`,";
         return this;
     }
+
     public InsertQuery value(Object value) {
         query = query.substring(0, query.length() - 1);
         if(firstvalue){
@@ -29,8 +31,9 @@ public class InsertQuery extends Query{
         values.add(value);
         return this;
     }
+
     public void execute(){
-        PreparedStatement pstatement = null;
+        PreparedStatement pstatement;
         try {
             pstatement = connection.prepareStatement(query);
             int i = 1;
@@ -45,8 +48,9 @@ public class InsertQuery extends Query{
             e.printStackTrace();
         }
     }
+
     public Object executeAndGetKey(){
-        PreparedStatement pstatement = null;
+        PreparedStatement pstatement;
         try {
             pstatement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
             int i = 1;
@@ -67,8 +71,9 @@ public class InsertQuery extends Query{
         }
         return null;
     }
+
     public int executeAndGetKeyInInt(){
-        PreparedStatement pstatement = null;
+        PreparedStatement pstatement;
         try {
             pstatement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
             int i = 1;
@@ -78,9 +83,7 @@ public class InsertQuery extends Query{
             }
             pstatement.executeUpdate();
             ResultSet result = pstatement.getGeneratedKeys();
-            if(result != null){
-                if(result.next()) return result.getInt(1);
-            }
+            if(result != null && result.next()) return result.getInt(1);
             if(result != null) result.close();
             pstatement.close();
             connection.close();

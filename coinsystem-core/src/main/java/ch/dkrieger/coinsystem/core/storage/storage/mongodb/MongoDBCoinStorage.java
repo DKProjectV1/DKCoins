@@ -21,7 +21,6 @@ import java.util.UUID;
 public class MongoDBCoinStorage implements CoinStorage {
 
     private Config config;
-    private MongoClient mongoClient;
     private MongoDatabase database;
     private MongoCollection collection;
 
@@ -38,13 +37,13 @@ public class MongoDBCoinStorage implements CoinStorage {
         uri += "?retryWrites=true&connectTimeoutMS=500&socketTimeoutMS=500";
         //(login.hasSSL()) uri+= "&ssl=true";
 
-        this.mongoClient = new MongoClient(new MongoClientURI(uri));
-        this.database = this.mongoClient.getDatabase(config.database);
+        MongoClient mongoClient = new MongoClient(new MongoClientURI(uri));
+        this.database = mongoClient.getDatabase(config.database);
         this.collection = database.getCollection("DKCoins_players");
         return true;
     }
     @Override
-    public CoinPlayer getPlayer(int id) throws Exception {
+    public CoinPlayer getPlayer(int id) {
         return MongoDBUtil.findFirst(collection, Filters.eq("id",id),CoinPlayer.class);
     }
     @Override
@@ -68,7 +67,7 @@ public class MongoDBCoinStorage implements CoinStorage {
 
     @Override
     public CoinPlayer createPlayer(CoinPlayer player) {
-        player.setIDSimpled(Integer.valueOf(String.valueOf((this.collection.countDocuments()+1))));
+        player.setIDSimpled(Integer.parseInt(String.valueOf((this.collection.countDocuments()+1))));
         MongoDBUtil.insertOne(collection,player);
         return player;
     }
@@ -90,16 +89,12 @@ public class MongoDBCoinStorage implements CoinStorage {
     }
 
     @Override
-    public void disconnect() {}
+    public void disconnect() {
+        //No disconnect needed
+    }
     @Override
     public boolean isConnected() {
-        /*
-        MongoDatabase database = mongoClient.getDatabase(config.database);
-        org.bson.Document serverStatus = database.runCommand(new org.bson.Document("serverStatus", 1));
-        Map connections = (Map) serverStatus.get("connections");
-        Integer current = (Integer) connections.get("current");
-        System.out.println(current);
-         */
+        //Implement
         return true;
     }
 }

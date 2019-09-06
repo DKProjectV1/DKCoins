@@ -18,7 +18,7 @@ import ch.dkrieger.coinsystem.core.storage.storage.sql.sqlite.SQLiteCoinStorage;
 
 public class CoinSystem {
 
-    private static CoinSystem instance;
+    private static CoinSystem INSTANCE;
     private final String version;
     private final DKCoinsPlatform platform;
     private CoinPlayerManager playerManager;
@@ -26,7 +26,7 @@ public class CoinSystem {
     private Config config;
 
     public CoinSystem(DKCoinsPlatform platform) {
-        instance = this;
+        INSTANCE = this;
         this.version = "3.1.4";
         this.platform = platform;
 
@@ -100,6 +100,6 @@ public class CoinSystem {
     }
 
     public static CoinSystem getInstance() {
-        return instance;
+        return INSTANCE;
     }
 }

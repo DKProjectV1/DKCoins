@@ -1,6 +1,6 @@
 package ch.dkrieger.coinsystem.tools.spigot.coinbooster;
 
-import ch.dkrieger.coinsystem.core.config.Config;
+import ch.dkrieger.coinsystem.core.CoinSystem;
 import ch.dkrieger.coinsystem.tools.spigot.coinbooster.listeners.CoinPlayerCoinsChangeListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -14,8 +14,9 @@ public class CoinBoosterExtension extends JavaPlugin{
     private static CoinBoosterExtension INSTANCE;
 
     public String permission;
-    public String boostmessage;;
-    public boolean enabled_admincommand, enabled_vault;
+    public String boostmessage;
+    public boolean enabled_admincommand;
+    public boolean enabled_vault;
     public List<String> disabled;
 
     @Override
@@ -26,21 +27,21 @@ public class CoinBoosterExtension extends JavaPlugin{
         pm.registerEvents(new CoinPlayerCoinsChangeListener(),this);
 
         Bukkit.getScheduler().runTaskLater(this,()->{
-            Config.getInstance().add("permissions.extension.coinboost","dkcoins.booster.boost.[boost]");
-            Config.getInstance().add("message.extension.coinbooster.boost","&7You have a boost of &e[boost]%, &7you get &e[coins] &7Coins more.");
-            Config.getInstance().add("extension.coinbooster.enabled.admincommand",true);
-            Config.getInstance().add("extension.coinbooster.enabled.vaulthook",true);
+            CoinSystem.getInstance().getConfig().add("permissions.extension.coinboost","dkcoins.booster.boost.[boost]");
+            CoinSystem.getInstance().getConfig().add("message.extension.coinbooster.boost","&7You have a boost of &e[boost]%, &7you get &e[coins] &7Coins more.");
+            CoinSystem.getInstance().getConfig().add("extension.coinbooster.enabled.admincommand",true);
+            CoinSystem.getInstance().getConfig().add("extension.coinbooster.enabled.vaulthook",true);
             ArrayList<String> list = new ArrayList<>();
             list.add("test");
-            Config.getInstance().add("extension.coinbooster.disabled",list);
-            Config.getInstance().save();
+            CoinSystem.getInstance().getConfig().add("extension.coinbooster.disabled",list);
+            CoinSystem.getInstance().getConfig().save();
         },(long) 1.5);
         Bukkit.getScheduler().runTaskLater(this,()->{
-            permission = Config.getInstance().getStringValue("permissions.extension.coinboost");
-            boostmessage = Config.getInstance().translate(Config.getInstance().getString("message.extension.coinbooster.boost"));
-            enabled_admincommand = Config.getInstance().getBooleanValue("extension.coinbooster.enabled.admincommand");
-            enabled_vault = Config.getInstance().getBooleanValue("extension.coinbooster.enabled.vaulthook");
-            disabled = Config.getInstance().getStringListValue("extension.coinbooster.disabled");
+            permission = CoinSystem.getInstance().getConfig().getStringValue("permissions.extension.coinboost");
+            boostmessage = CoinSystem.getInstance().getConfig().translate(CoinSystem.getInstance().getConfig().getString("message.extension.coinbooster.boost"));
+            enabled_admincommand = CoinSystem.getInstance().getConfig().getBooleanValue("extension.coinbooster.enabled.admincommand");
+            enabled_vault = CoinSystem.getInstance().getConfig().getBooleanValue("extension.coinbooster.enabled.vaulthook");
+            disabled = CoinSystem.getInstance().getConfig().getStringListValue("extension.coinbooster.disabled");
         },(long) 2.5);
     }
     public static CoinBoosterExtension getInstance() {

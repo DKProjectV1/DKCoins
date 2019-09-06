@@ -1,7 +1,6 @@
 package ch.dkrieger.coinsystem.core.player;
 
 import ch.dkrieger.coinsystem.core.CoinSystem;
-import ch.dkrieger.coinsystem.core.config.Config;
 import ch.dkrieger.coinsystem.core.event.CoinChangeEventResult;
 import ch.dkrieger.coinsystem.core.event.CoinsUpdateCause;
 import net.md_5.bungee.api.ChatColor;
@@ -13,7 +12,9 @@ public class CoinPlayer {
 	private int id;
 	private String name, color;
 	private UUID uuid;
-	private long coins, firstLogin,lastLogin;
+	private long coins;
+	private long firstLogin;
+	private long lastLogin;
 	
 	public CoinPlayer(int id, UUID uuid, String name,String color, long firstLogin, long lastLogin, long coins){
 		this.id = id;
@@ -46,7 +47,7 @@ public class CoinPlayer {
 	}
 
 	public String getColor(){
-		if(Config.getInstance().liveColorUpdate){
+		if(CoinSystem.getInstance().getConfig().liveColorUpdate){
 			String color = CoinSystem.getInstance().getPlatform().getColor(this);
 			if(color != null) this.color = color;
 		}
@@ -58,8 +59,7 @@ public class CoinPlayer {
 	}
 
 	public boolean hasCoins(long coins){
-		if(this.coins >= coins) return true;
-		return false;
+		return this.coins >= coins;
 	}
 
 	public void addCoins(long coins){
@@ -146,7 +146,7 @@ public class CoinPlayer {
 		this.name = name;
 		this.lastLogin = lastLogin;
 		if(color != null) this.color = color;
-		if(this.color == null) this.color = Config.getInstance().defaultColor;
+		if(this.color == null) this.color = CoinSystem.getInstance().getConfig().defaultColor;
 		CoinSystem.getInstance().getStorage().updateInformations(this.uuid,name,this.color,lastLogin);
 	}
 

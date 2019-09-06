@@ -40,6 +40,7 @@ public class PlayerListener implements Listener{
 					,System.currentTimeMillis());
 		});
 	}
+
 	@EventHandler
 	public void onQuit(PlayerQuitEvent event){
 		if(Config.getInstance().system_player_onlyproxy_check) return;
@@ -49,6 +50,7 @@ public class PlayerListener implements Listener{
 					,System.currentTimeMillis());
 		});
 	}
+
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e){
 		Bukkit.getScheduler().runTaskAsynchronously(SpigotCoinSystemBootstrap.getInstance(),()->{

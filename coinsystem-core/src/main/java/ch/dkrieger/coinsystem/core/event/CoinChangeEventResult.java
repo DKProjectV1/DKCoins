@@ -3,16 +3,18 @@ package ch.dkrieger.coinsystem.core.event;
 public class CoinChangeEventResult {
 
     private boolean cancelled;
-    private Long coins;
+    private long coins;
 
-    public CoinChangeEventResult(boolean cancelled, Long coins){
+    public CoinChangeEventResult(boolean cancelled, long coins){
         this.cancelled = cancelled;
         this.coins = coins;
     }
-    public Boolean isCancelled(){
+
+    public boolean isCancelled(){
         return this.cancelled;
     }
-    public Long getCoins(){
+
+    public long getCoins(){
         return this.coins;
     }
 }

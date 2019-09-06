@@ -28,18 +28,21 @@ import java.io.File;
 import java.lang.reflect.Field;
 
 public class SpigotCoinSystemBootstrap extends JavaPlugin implements DKCoinsPlatform {
-	
-	private static SpigotCoinSystemBootstrap instance;
+
+	public static Thread MAIN_SERVER_THREAD;
+	private static SpigotCoinSystemBootstrap INSTANCE;
 
 	@Override
 	public void onLoad() {
-		instance = this;
+		MAIN_SERVER_THREAD = Thread.currentThread();
+		INSTANCE = this;
 
 		new CoinSystem(this);
 	}
+
 	@Override
 	public void onEnable() {
-		instance = this;
+		INSTANCE = this;
 
 		Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
 
@@ -48,6 +51,7 @@ public class SpigotCoinSystemBootstrap extends JavaPlugin implements DKCoinsPlat
 		if(Config.getInstance().command_pay_enabled) registerCommand(new PayCommand());
 		hook();
 	}
+
 	@Override
 	public void onDisable() {
 		CoinSystem.getInstance().shutdown();
@@ -86,11 +90,12 @@ public class SpigotCoinSystemBootstrap extends JavaPlugin implements DKCoinsPlat
 	}
 
 	@Override
-	public CoinChangeEventResult executeCoinChangeEvent(CoinPlayer player, Long oldCoins, Long newCoins, CoinsUpdateCause cause, String message) {
+	public CoinChangeEventResult executeCoinChangeEvent(CoinPlayer player, long oldCoins, long newCoins, CoinsUpdateCause cause, String message) {
 		BukkitCoinPlayerCoinsChangeEvent event = new BukkitCoinPlayerCoinsChangeEvent(player,oldCoins,newCoins,cause,message);
 		Bukkit.getPluginManager().callEvent(event);
 		return new CoinChangeEventResult(event.isCancelled(),event.getNewCoins());
 	}
+
 	public void registerCommand(Command command){
 		CommandMap cmap = null;
 		try{
@@ -102,6 +107,7 @@ public class SpigotCoinSystemBootstrap extends JavaPlugin implements DKCoinsPlat
 			e.printStackTrace();
 		}
 	}
+
 	private void hook(){
 		if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
 			System.out.println("["+MessageManager.getInstance().system_name+"] PlaceHolderAPI found");
@@ -118,30 +124,32 @@ public class SpigotCoinSystemBootstrap extends JavaPlugin implements DKCoinsPlat
 			}
 		}
 	}
-	public String format(Long coins){
+
+	public String format(long coins){
 		if(!Config.getInstance().number_formatting_enabled) return ""+coins;
 		String number = String.valueOf(coins);
 		if(number.length() > 3){
 			int charposition = 0;
 			char[] chars = number.toCharArray();
-			String formated = "";
+			String formatted = "";
 			for(int i = chars.length-1;i > -1;i--){
-				formated+=chars[i];
+				formatted+=chars[i];
 				if(charposition == 2){
 					charposition = 0;
-					formated +=Config.getInstance().number_formatting_symbol;
+					formatted +=Config.getInstance().number_formatting_symbol;
 				}else charposition++;
 			}
 			String finish = "";
-			char[] finisharray = formated.toCharArray();
-			for(int i = finisharray.length-1;i > -1;i--) finish += finisharray[i];
-			if(finish.startsWith(Config.getInstance().number_formatting_symbol)) finish = finish.substring(1,finish.length());
+			char[] finished = formatted.toCharArray();
+			for(int i = finished.length-1;i > -1;i--) finish += finished[i];
+			if(finish.startsWith(Config.getInstance().number_formatting_symbol)) finish = finish.substring(1);
 			return finish;
 		}
 		return ""+coins;
 	}
+
 	public static SpigotCoinSystemBootstrap getInstance(){
-		return instance;
+		return INSTANCE;
 	}
 }
 

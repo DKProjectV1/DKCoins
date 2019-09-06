@@ -11,16 +11,16 @@ import java.util.List;
 
 public class CoinBoosterExtension extends JavaPlugin{
 
-    private static CoinBoosterExtension instance;
+    private static CoinBoosterExtension INSTANCE;
 
     public String permission;
     public String boostmessage;;
-    public Boolean enabled_admincommand, enabled_vault;
+    public boolean enabled_admincommand, enabled_vault;
     public List<String> disabled;
 
     @Override
     public void onEnable() {
-        instance = this;
+        INSTANCE = this;
         PluginManager pm = Bukkit.getPluginManager();
 
         pm.registerEvents(new CoinPlayerCoinsChangeListener(),this);
@@ -44,6 +44,6 @@ public class CoinBoosterExtension extends JavaPlugin{
         },(long) 2.5);
     }
     public static CoinBoosterExtension getInstance() {
-        return instance;
+        return INSTANCE;
     }
 }

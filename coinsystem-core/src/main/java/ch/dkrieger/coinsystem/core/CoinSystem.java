@@ -27,7 +27,7 @@ public class CoinSystem {
 
     public CoinSystem(DKCoinsPlatform platform) {
         instance = this;
-        this.version = "3.1.2";
+        this.version = "3.1.3";
         this.platform = platform;
 
         new MessageManager("DKCoins");
@@ -38,6 +38,7 @@ public class CoinSystem {
 
         System.out.println("["+MessageManager.getInstance().system_name+"] plugin successfully started");
     }
+
     private void systemBootstrap(){
         this.platform.getFolder().mkdirs();
 
@@ -48,6 +49,7 @@ public class CoinSystem {
 
         setupStorage();
     }
+
     private void setupStorage() {
         if(this.config.storageType == StorageType.MYSQL) this.storage = new MySQLCoinStorage(this.config);
         else if(this.config.storageType == StorageType.SQLITE) this.storage = new SQLiteCoinStorage(this.config);
@@ -61,6 +63,7 @@ public class CoinSystem {
         System.out.println(MessageManager.getInstance().system_name+"Used Backup Storage: "+StorageType.SQLITE.toString());
         this.storage = new SQLiteCoinStorage(this.config);
     }
+
     public void reload(){
         System.out.println("["+MessageManager.getInstance().system_name+"] plugin is reloading");
         System.out.println("["+MessageManager.getInstance().system_name+"] CoinSystem v"+this.version+" by Davide Wietlisbach");
@@ -68,12 +71,14 @@ public class CoinSystem {
         systemBootstrap();
         System.out.println("["+MessageManager.getInstance().system_name+"] plugin successfully reloaded");
     }
+
     public void shutdown(){
         System.out.println("["+MessageManager.getInstance().system_name+"] plugin is stopping");
         System.out.println("["+MessageManager.getInstance().system_name+"] CoinSystem v"+this.version+" by Davide Wietlisbach");
         if(this.storage != null) this.storage.disconnect();
         System.out.println("["+MessageManager.getInstance().system_name+"] plugin successfully stopped");
     }
+
     public String getVersion() {
         return version;
     }
@@ -93,6 +98,7 @@ public class CoinSystem {
     public Config getConfig() {
         return config;
     }
+
     public static CoinSystem getInstance() {
         return instance;
     }

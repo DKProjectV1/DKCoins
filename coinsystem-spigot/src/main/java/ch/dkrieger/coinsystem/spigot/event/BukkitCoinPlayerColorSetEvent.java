@@ -1,6 +1,7 @@
 package ch.dkrieger.coinsystem.spigot.event;
 
 import ch.dkrieger.coinsystem.core.player.CoinPlayer;
+import ch.dkrieger.coinsystem.spigot.SpigotCoinSystemBootstrap;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -20,7 +21,7 @@ public class BukkitCoinPlayerColorSetEvent extends Event {
     private Player bukkitPlayer;
 
     public BukkitCoinPlayerColorSetEvent(String color, CoinPlayer player, Player bukkitPlayer) {
-        super(Thread.currentThread().getId() != 1);
+        super(Thread.currentThread() != SpigotCoinSystemBootstrap.MAIN_SERVER_THREAD);
         this.color = color;
         this.player = player;
         this.bukkitPlayer = bukkitPlayer;
@@ -28,12 +29,15 @@ public class BukkitCoinPlayerColorSetEvent extends Event {
     public String getColor(){
         return this.color;
     }
+
     public CoinPlayer getPlayer() {
         return this.player;
     }
+
     public Player getBukkitPlayer() {
         return bukkitPlayer;
     }
+
     public void setColor(String color){
         this.color = color;
     }
@@ -42,6 +46,7 @@ public class BukkitCoinPlayerColorSetEvent extends Event {
     public HandlerList getHandlers() {
         return handlers;
     }
+    
     public static HandlerList getHandlerList() {
         return handlers;
     }

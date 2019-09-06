@@ -20,7 +20,7 @@ public class PlayerListener implements Listener{
 			try {
 				try{
 					player = CoinSystem.getInstance().getPlayerManager().getPlayerSave(event.getConnection().getUniqueId());
-				}catch (Exception exception2){}
+				}catch (Exception ignored){}
 				player = CoinSystem.getInstance().getPlayerManager().getPlayerSave(event.getConnection().getUniqueId());
 			}catch (Exception exception){
 				event.setCancelled(true);

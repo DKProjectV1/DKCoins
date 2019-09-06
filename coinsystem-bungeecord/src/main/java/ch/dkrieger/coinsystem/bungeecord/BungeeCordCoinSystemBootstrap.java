@@ -17,11 +17,11 @@ import java.io.File;
 
 public class BungeeCordCoinSystemBootstrap extends Plugin implements DKCoinsPlatform {
 	
-	private static BungeeCordCoinSystemBootstrap instance;
+	private static BungeeCordCoinSystemBootstrap INSTANCE;
 
 	@Override
 	public void onLoad() {
-		instance = this;
+		INSTANCE = this;
 
 		new CoinSystem(this);
 	}
@@ -30,6 +30,7 @@ public class BungeeCordCoinSystemBootstrap extends Plugin implements DKCoinsPlat
 	public void onEnable() {
 		ProxyServer.getInstance().getPluginManager().registerListener(this,new PlayerListener());
 	}
+
 	@Override
 	public void onDisable(){
 		CoinSystem.getInstance().shutdown();
@@ -42,7 +43,7 @@ public class BungeeCordCoinSystemBootstrap extends Plugin implements DKCoinsPlat
 
 	@Override
 	public String getServerVersion() {
-		return ProxyServer.getInstance().getVersion()+" | "+ProxyServer.getInstance().getGameVersion();
+		return ProxyServer.getInstance().getVersion()+" | "+ProxyServer.getInstance().getVersion();
 	}
 
 	@Override
@@ -66,13 +67,15 @@ public class BungeeCordCoinSystemBootstrap extends Plugin implements DKCoinsPlat
 		if(event.getColor() != null) color = event.getColor();
 		return color;
 	}
+
 	@Override
-	public CoinChangeEventResult executeCoinChangeEvent(CoinPlayer player, Long oldCoins, Long newCoins, CoinsUpdateCause cause, String message) {
+	public CoinChangeEventResult executeCoinChangeEvent(CoinPlayer player, long oldCoins, long newCoins, CoinsUpdateCause cause, String message) {
 		ProxiedCoinPlayerCoinsChangeEvent event = new ProxiedCoinPlayerCoinsChangeEvent(player,oldCoins,newCoins,cause,message);
 		ProxyServer.getInstance().getPluginManager().callEvent(event);
 		return new CoinChangeEventResult(event.isCancelled(),event.getNewCoins());
 	}
+
 	public static BungeeCordCoinSystemBootstrap getInstance(){
-		return instance;
+		return INSTANCE;
 	}
 }

@@ -25,7 +25,7 @@ public class CoinPlayerCoinsChangeListener implements Listener {
             }
             if(e.getNewCoins() < 1) return;
             if(e.getOldCoins() > e.getNewCoins()) return;
-            Long different = e.getNewCoins()-e.getOldCoins();
+            long different = e.getNewCoins()-e.getOldCoins();
             if(different < 1) return;
             int boost = booster(e.getCoinPlayer().getUUID());
             if(boost < 1) return;
@@ -34,13 +34,14 @@ public class CoinPlayerCoinsChangeListener implements Listener {
 
             double coinboost = different/100.0;
             coinboost = coinboost*boost;
-            Long amount = (long) coinboost;
-            Long newcoins = e.getNewCoins()+amount;
-            e.setNewCoins(newcoins);
+            long amount = (long) coinboost;
+            long newCoins = e.getNewCoins()+amount;
+            e.setNewCoins(newCoins);
             player.sendMessage(MessageManager.getInstance().prefix+CoinBoosterExtension.getInstance().boostmessage
                     .replace("[boost]",String.valueOf(boost)).replace("[coins]", SpigotCoinSystemBootstrap.getInstance().format(amount)));
         }
     }
+
     private int booster(UUID uuid){
         Player player = Bukkit.getPlayer(uuid);
         if(player == null) return 0;

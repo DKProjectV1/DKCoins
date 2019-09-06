@@ -5,23 +5,30 @@
     <parent>
         <artifactId>CoinSystem</artifactId>
         <groupId>ch.dkrieger.coinsystem</groupId>
-        <version>3.1.2</version>
+        <version>3.1.3</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ch.dkrieger.coinsystem.tools.spigot.coinbooster</groupId>
     <artifactId>coinsystem-tools-spigot-coinbooster</artifactId>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
                 <configuration>
                     <source>8</source>
                     <target>8</target>
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 
     <repositories>
@@ -33,14 +40,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>ch.dkrieger.coinsystem.core</groupId>
+            <groupId>ch.dkrieger.coinsystem</groupId>
             <artifactId>coinsystem-core</artifactId>
-            <version>3.1.2</version>
+            <version>3.1.3</version>
         </dependency>
         <dependency>
-            <groupId>ch.dkrieger.coinsystem.spigot</groupId>
+            <groupId>ch.dkrieger.coinsystem</groupId>
             <artifactId>coinsystem-spigot</artifactId>
-            <version>3.1.2</version>
+            <version>3.1.3</version>
         </dependency>
         <dependency>
             <groupId>org.bukkit</groupId>

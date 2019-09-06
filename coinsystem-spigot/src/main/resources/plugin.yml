@@ -1,7 +1,6 @@
 name: DKCoins
 author: Dkrieger
-description: 
-version: 3.1.2
+version: ${project.version}
 api-version: 1.13
 softdepend: [Vault, PlaceholderAPI]
 

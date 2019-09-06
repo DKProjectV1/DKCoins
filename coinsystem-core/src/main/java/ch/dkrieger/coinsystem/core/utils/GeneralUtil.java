@@ -17,12 +17,12 @@ public class GeneralUtil {
     public static final Random RANDOM = new Random();
     public static final GsonBuilder GSON_BUILDER = new GsonBuilder().setPrettyPrinting();
     public static Gson GSON = GSON_BUILDER.create();
-    public static Gson GSON_NOT_PRETTY = new Gson();
     public static final JsonParser PARSER = new JsonParser();
 
     public static void createGSON(){
         GSON = GSON_BUILDER.create();
     }
+
     public static String getRandomString(final int size){
         char data = ' ';
         String dat = "";
@@ -32,6 +32,7 @@ public class GeneralUtil {
         }
         return dat;
     }
+
     public static boolean isNumber(String value){
         try{
             Long.parseLong(value);

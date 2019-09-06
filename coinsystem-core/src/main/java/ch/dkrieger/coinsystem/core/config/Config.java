@@ -28,14 +28,14 @@ public class Config extends SimpleConfig{
     public SimpleDateFormat dateFormat;
     public List<PlayerColor> playerColors;
 
-    public Long system_player_startcoin;
+    public long system_player_startcoin;
     public boolean system_player_onlyproxy_check;
 
     public boolean system_player_addcoinsonkill;
-    public Long system_player_addcoinsonkill_amount;
+    public long system_player_addcoinsonkill_amount;
 
     public boolean system_player_removecoinsondeath;
-    public Long system_player_removecoinsondeath_amount;
+    public long system_player_removecoinsondeath_amount;
 
     public String command_name;
     public List<String> command_aliases;

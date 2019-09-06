@@ -6,13 +6,13 @@ import net.md_5.bungee.api.plugin.Event;
 
 public class ProxiedCoinPlayerCoinsChangeEvent extends Event{
 
-	private CoinPlayer coinplayer;
-	private Long oldCoins, newCoins;
+	private final CoinPlayer coinplayer;
+	private long oldCoins, newCoins;
 	private boolean cancelled;
 	private String message;
 	private CoinsUpdateCause cause;
 	
-	public ProxiedCoinPlayerCoinsChangeEvent(CoinPlayer coinplayer, Long oldCoins, Long newCoins, CoinsUpdateCause cause, String message){
+	public ProxiedCoinPlayerCoinsChangeEvent(CoinPlayer coinplayer, long oldCoins, long newCoins, CoinsUpdateCause cause, String message){
 		this.newCoins = newCoins;
 		this.oldCoins = oldCoins;
 		this.coinplayer = coinplayer;
@@ -20,28 +20,36 @@ public class ProxiedCoinPlayerCoinsChangeEvent extends Event{
 		this.message = message;
 		this.cancelled = false;
 	}
+
     public CoinPlayer getCoinPlayer(){
     	return this.coinplayer;
     }
+
 	public String getMessage() {
 		return message;
 	}
-	public Long getNewCoins(){
+
+	public long getNewCoins(){
     	return this.newCoins;
     }
-    public Long getOldCoins(){
+
+    public long getOldCoins(){
 		return this.oldCoins;
 	}
+
 	public CoinsUpdateCause getCause() {
 		return cause;
 	}
+
 	public boolean isCancelled(){
 		return this.cancelled;
 	}
+
 	public void setCancelled(Boolean value){
 		this.cancelled = value;
 	}
-	public void setNewCoins(Long amount){
+
+	public void setNewCoins(long amount){
 		this.newCoins = amount;
 	}
 }

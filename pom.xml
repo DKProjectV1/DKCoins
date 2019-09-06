@@ -7,10 +7,12 @@
     <groupId>ch.dkrieger.coinsystem</groupId>
     <artifactId>CoinSystem</artifactId>
     <packaging>pom</packaging>
-    <version>3.1.2</version>
+    <version>3.1.3</version>
 
     <properties>
-        <version>3.1.2</version>
+        <timestamp>${maven.build.timestamp}</timestamp>
+        <maven.build.timestamp.format>yyyy.MM.dd HH:mm</maven.build.timestamp.format>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <modules>
@@ -26,12 +28,5 @@
             <name>Davide Wietlisbach</name>
         </developer>
     </developers>
-
-    <repositories>
-        <repository>
-            <id>bungeecord-repo</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </repository>
-    </repositories>
 
 </project>

@@ -23,6 +23,7 @@ public class CoinsCommand extends Command{
 	public CoinsCommand() {
 		super(Config.getInstance().command_name,"Coins command","/"+Config.getInstance().command_name+" <player>",Config.getInstance().command_aliases);
 	}
+
 	@Override
 	public boolean execute(CommandSender sender, String label,String[] args) {
 		Bukkit.getScheduler().runTaskAsynchronously(SpigotCoinSystemBootstrap.getInstance(),()->{
@@ -103,7 +104,7 @@ public class CoinsCommand extends Command{
 						sendHelp(sender);
 						return;
 					}
-					Long amount = Long.valueOf(args[2]);
+					long amount = Long.parseLong(args[2]);
 					if(amount < 1){
 						sendHelp(sender);
 						return;
@@ -132,7 +133,7 @@ public class CoinsCommand extends Command{
 						sendHelp(sender);
 						return;
 					}
-					Long amount = Long.valueOf(args[2]);
+					long amount = Long.parseLong(args[2]);
 					if(amount < 0) amount = 0L;
 					coinplayer.setCoins(amount,CoinsUpdateCause.ADMIN);
 					sender.sendMessage(MessageManager.getInstance().command_coins_set_sender.replace("[player]",coinplayer.getColor()+coinplayer.getName()).replace("[amount]", SpigotCoinSystemBootstrap.getInstance().format(amount)));
@@ -148,7 +149,7 @@ public class CoinsCommand extends Command{
 						sendHelp(sender);
 						return;
 					}
-					Long amount = Long.valueOf(args[2]);
+					long amount = Long.parseLong(args[2]);
 					if(amount < 1) amount = 1L;
 					coinplayer.addCoins(amount,CoinsUpdateCause.ADMIN);
 					sender.sendMessage(MessageManager.getInstance().command_coins_add_sender.replace("[player]",coinplayer.getColor()+coinplayer.getName()).replace("[amount]", SpigotCoinSystemBootstrap.getInstance().format(amount)));
@@ -164,7 +165,7 @@ public class CoinsCommand extends Command{
 						sendHelp(sender);
 						return;
 					}
-					long amount = Long.valueOf(args[2]);
+					long amount = Long.parseLong(args[2]);
 					if(amount < 1) amount = 1L;
 					if(coinplayer.hasCoins(amount)){
 						coinplayer.removeCoins(amount,CoinsUpdateCause.ADMIN);
@@ -217,6 +218,7 @@ public class CoinsCommand extends Command{
 			sender.sendMessage(MessageManager.getInstance().command_coins_help_reset);
 		}
 	}
+
 	private boolean isNumber(String value){
 		try{
 			int number = Integer.parseInt(value);
@@ -228,12 +230,12 @@ public class CoinsCommand extends Command{
 
 	public static class DummyAllCoinPlayer extends CoinPlayer{
 
-		public DummyAllCoinPlayer() {
+		private DummyAllCoinPlayer() {
 			super(-30,UUID.randomUUID(),"All","§4",0L,0L, 0L);
 		}
 
 		@Override
-		public Boolean hasCoins(long coins) {
+		public boolean hasCoins(long coins) {
 			return true;
 		}
 

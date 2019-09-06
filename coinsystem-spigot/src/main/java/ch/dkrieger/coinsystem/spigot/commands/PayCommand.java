@@ -12,6 +12,7 @@ public class PayCommand extends Command{
 	public PayCommand() {
 		super(Config.getInstance().command_pay_name,"pay","/"+Config.getInstance().command_pay_name+" <player> <amount>",Config.getInstance().command_pay_aliases);
 	}
+
 	@Override
 	public boolean execute(CommandSender sender, String label,String[] args) {
 		if(sender.hasPermission(PermissionManager.getInstance().command_coins_pay)){

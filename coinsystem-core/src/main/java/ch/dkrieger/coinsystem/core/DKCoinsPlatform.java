@@ -14,13 +14,13 @@ import java.io.File;
 
 public interface DKCoinsPlatform {
 
-    public String getPlatformName();
+    String getPlatformName();
 
-    public String getServerVersion();
+    String getServerVersion();
 
-    public File getFolder();
+    File getFolder();
 
-    public String getColor(CoinPlayer player);
+    String getColor(CoinPlayer player);
 
-    public CoinChangeEventResult executeCoinChangeEvent(CoinPlayer player, Long oldCoins, Long newCoins, CoinsUpdateCause cause, String message);
+    CoinChangeEventResult executeCoinChangeEvent(CoinPlayer player, long oldCoins, long newCoins, CoinsUpdateCause cause, String message);
 }

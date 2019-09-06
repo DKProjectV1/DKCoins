@@ -19,9 +19,11 @@ public class ProxiedCoinPlayerColorSetEvent extends Event{
         this.player = player;
         this.proxiedPlayer = proxiedPlayer;
     }
+
     public String getColor(){
         return this.color;
     }
+
     public CoinPlayer getPlayer() {
         return player;
     }

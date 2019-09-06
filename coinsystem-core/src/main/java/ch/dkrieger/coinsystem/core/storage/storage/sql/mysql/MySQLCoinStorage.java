@@ -6,9 +6,6 @@ import ch.dkrieger.coinsystem.core.storage.storage.sql.SQLCoinStorage;
 import ch.dkrieger.coinsystem.core.storage.storage.sql.table.Table;
 import com.zaxxer.hikari.HikariConfig;
 
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /*
@@ -22,12 +19,13 @@ public class MySQLCoinStorage extends SQLCoinStorage {
 	public MySQLCoinStorage(Config config) {
         super(config);
 	}
+
     @Override
     public void loadDriver() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch(ClassNotFoundException exception) {
-			System.out.println(MessageManager.getInstance().system_name+"Could not load MySQLCoinStorage driver.");
+			System.out.println(MessageManager.getInstance().system_name+"Could not load MySQL driver.");
 		}
 	}
     @Override

@@ -15,6 +15,7 @@ public class UpdateQuery extends Query {
     public UpdateQuery(Connection connection, String query) {
         super(connection, query);
     }
+
     public UpdateQuery set(String field, Object value) {
         if (comma) query += ",";
         query += " `"+field+"`=?";
@@ -22,6 +23,7 @@ public class UpdateQuery extends Query {
         comma = true;
         return this;
     }
+
     public UpdateQuery where(String key, Object value) {
         if(and) query += " AND";
         else query += " WHERE";
@@ -30,6 +32,7 @@ public class UpdateQuery extends Query {
         and = true;
         return this;
     }
+
     public void execute() {
         PreparedStatement pstatement;
         try {

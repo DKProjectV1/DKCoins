@@ -18,6 +18,7 @@ public class SelectQuery extends  Query{
     public SelectQuery(Connection connection, String query) {
         super(connection, query);
     }
+
     public SelectQuery where(String key, Object value) {
         if(!and){
             query += " WHERE";
@@ -27,6 +28,7 @@ public class SelectQuery extends  Query{
         values.add(value);
         return this;
     }
+
     public SelectQuery whereWithOr(String key, Object value) {
         if(!and){
             query += " WHERE";
@@ -36,10 +38,12 @@ public class SelectQuery extends  Query{
         values.add(value);
         return this;
     }
+
     public SelectQuery noCase(){
         query += " COLLATE NOCASE";
         return this;
     }
+
     public ResultSet execute() throws SQLException{
         pstatement = connection.prepareStatement(query);
         int i = 1;
@@ -47,8 +51,7 @@ public class SelectQuery extends  Query{
             pstatement.setString(i, object.toString());
             i++;
         }
-        ResultSet result = pstatement.executeQuery();
-        return result;
+        return pstatement.executeQuery();
     }
     public void close() throws SQLException{
         if(pstatement != null)  pstatement.close();

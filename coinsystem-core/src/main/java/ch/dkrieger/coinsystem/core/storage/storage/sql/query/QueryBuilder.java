@@ -3,6 +3,7 @@ package ch.dkrieger.coinsystem.core.storage.storage.sql.query;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,23 +20,27 @@ public class QueryBuilder {
 
     public QueryBuilder(Query... querys){
         this.querys = new LinkedList<>();
-        for(Query query : querys) this.querys.add(query);
+        this.querys.addAll(Arrays.asList(querys));
     }
+
     public QueryBuilder append(Query query){
         this.querys.add(query);
         return this;
     }
+
     public QueryBuilder remove(Query query){
         this.querys.remove(query);
         return this;
     }
-    public QueryBuilder build(){
+
+    private QueryBuilder build(){
         for(Query query : this.querys){
             if(this.query == null) this.query = query.toString();
             else this.query += ";"+query.toString();
         }
         return this;
     }
+
     public void execute(){
         PreparedStatement pstatement;
         if(querys.size() <= 0) return;
@@ -65,6 +70,7 @@ public class QueryBuilder {
             }
         }
     }
+
     public void buildAndExecute(){
         build();
         execute();

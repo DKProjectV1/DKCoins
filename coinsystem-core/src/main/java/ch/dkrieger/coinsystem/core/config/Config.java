@@ -25,7 +25,7 @@ public class Config extends SimpleConfig{
     public StorageType storageType;
     public String host, port, user, password, database, mongoDbAuthenticationDatabase, dataFolder, defaultColor;
     public int maxConnections;
-    public boolean mongoDbSrv, mongoDbAuthentication, liveColorUpdate;
+    public boolean ssl, mongoDbSrv, mongoDbAuthentication, liveColorUpdate;
     public SimpleDateFormat dateFormat;
     public List<PlayerColor> playerColors;
 
@@ -66,7 +66,8 @@ public class Config extends SimpleConfig{
         this.user = getStringValue("storage.user");
         this.password = getStringValue("storage.password");
         this.database = getStringValue("storage.database");
-        this.maxConnections = getIntValue("storage.maxConnections");
+        this.ssl = getBooleanValue("storage.ssl");
+        this.maxConnections = getIntValue("storage.sql.maxConnections");
         this.mongoDbAuthentication = getBooleanValue("storage.mongodb.mongodbauthentication");
         this.mongoDbAuthenticationDatabase = getStringValue("storage.mongodb.authenticationDatabase");
         this.mongoDbSrv = getBooleanValue("storage.mongodb.srv");
@@ -154,7 +155,8 @@ public class Config extends SimpleConfig{
         addValue("storage.user", "root");
         addValue("storage.password", "password");
         addValue("storage.database", "DKCoins");
-        addValue("storage.maxConnections", 10);
+        addValue("storage.ssl", true);
+        addValue("storage.sql.maxConnections", 10);
         addValue("storage.mongodb.mongodbauthentication",true);
         addValue("storage.mongodb.authenticationDatabase", "admin");
         addValue("storage.mongodb.srv", false);

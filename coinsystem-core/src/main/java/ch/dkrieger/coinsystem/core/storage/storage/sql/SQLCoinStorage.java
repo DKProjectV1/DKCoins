@@ -12,7 +12,6 @@ import ch.dkrieger.coinsystem.core.storage.storage.sql.table.Table;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,7 +38,7 @@ public abstract class SQLCoinStorage implements CoinStorage {
     public boolean isConnected() {
         try{
             return dataSource != null && !(dataSource.isClosed()) ;
-        }catch (Exception exception){}
+        }catch (Exception ignored){}
         return false;
     }
     public Connection getConnection() {
@@ -50,18 +49,28 @@ public abstract class SQLCoinStorage implements CoinStorage {
         }
         return null;
     }
+
     public Table getTable() {
         return table;
     }
+
     public void setDataSource(HikariConfig config) {
         Config pluginConfig = CoinSystem.getInstance().getConfig();
 
         config.setMaximumPoolSize(pluginConfig.maxConnections);
         config.setPoolName("DKCoins");
-        config.addDataSourceProperty("cachePrepStmts", "true");
-        config.addDataSourceProperty("allowMultiQueries", "true");
+
+        config.addDataSourceProperty("cachePrepStmts",true);
+        config.addDataSourceProperty("characterEncoding","utf-8");
+        config.addDataSourceProperty("useUnicode",true);
+        config.addDataSourceProperty("allowMultiQueries",true);
+
+        config.addDataSourceProperty("ssl",pluginConfig.ssl);
+        config.addDataSourceProperty("useSSL",pluginConfig.ssl);
+
         this.dataSource = new HikariDataSource(config);
     }
+
     @Override
     public boolean connect() {
         if(!isConnected()){
@@ -81,6 +90,7 @@ public abstract class SQLCoinStorage implements CoinStorage {
         }
         return true;
     }
+
     @Override
     public void disconnect() {
         if(isConnected()){
@@ -88,6 +98,7 @@ public abstract class SQLCoinStorage implements CoinStorage {
             System.out.println(MessageManager.getInstance().system_name+"successful disconnected from sql server at "+this.config.host+":"+this.config.port);
         }
     }
+
     @Override
     public CoinPlayer getPlayer(int id) throws Exception {
         return getPlayer("id",id);
@@ -97,10 +108,12 @@ public abstract class SQLCoinStorage implements CoinStorage {
     public CoinPlayer getPlayer(UUID uuid) throws Exception{
         return getPlayer("uuid", uuid.toString());
     }
+
     @Override
     public CoinPlayer getPlayer(String name) throws Exception{
         return getPlayer("name", name);
     }
+
     private CoinPlayer getPlayer(String identifier, Object identifierObject) throws Exception{
         SelectQuery query = this.table.select().where(identifier, identifierObject);
         if(this instanceof SQLiteCoinStorage) query.noCase();
@@ -140,6 +153,7 @@ public abstract class SQLCoinStorage implements CoinStorage {
                 .value(player.getCoins()).executeAndGetKeyInInt());
         return player;
     }
+
     @Override
     public List<CoinPlayer> getPlayers(){
         List<CoinPlayer> players = new LinkedList<>();
@@ -161,7 +175,7 @@ public abstract class SQLCoinStorage implements CoinStorage {
                 query.close();
                 result.close();
             }
-        }catch (Exception exception){}
+        }catch (Exception ignored){}
         return players;
     }
 
@@ -186,7 +200,7 @@ public abstract class SQLCoinStorage implements CoinStorage {
                 query.close();
                 result.close();
             }
-        }catch (Exception exception){}
+        }catch (Exception ignored){}
         return players;
     }
 
@@ -199,6 +213,7 @@ public abstract class SQLCoinStorage implements CoinStorage {
     public void updateCoins(UUID uuid, long coins) {
         this.table.update().set("coins",coins).where("uuid",uuid.toString()).execute();
     }
+
     @Override
     public void updateInformations(UUID uuid, String name, String color, long lastLogin) {
         this.table.update()
@@ -209,6 +224,8 @@ public abstract class SQLCoinStorage implements CoinStorage {
     }
 
     public abstract void createTable(Table table);
+
     public abstract void connect(Config config) throws SQLException;
+
     public abstract void loadDriver();
 }

@@ -27,12 +27,15 @@ public class Query {
         this.and = false;
         this.values = new LinkedList<>();
     }
+
     public Connection getConnection() {
         return connection;
     }
+
     public String toString(){
         return this.query;
     }
+
     public List<Object> getValues(){
         return this.values;
     }

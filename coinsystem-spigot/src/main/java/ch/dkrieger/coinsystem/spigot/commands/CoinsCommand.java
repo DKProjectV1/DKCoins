@@ -165,10 +165,9 @@ public class CoinsCommand extends Command{
 						return;
 					}
 					long amount = Long.parseLong(args[2]);
-					if(amount < 1) amount = 1L;
-					if(coinplayer.hasCoins(amount)){
-						coinplayer.removeCoins(amount,CoinsUpdateCause.ADMIN);
-					}else coinplayer.setCoins((long) 0,CoinsUpdateCause.ADMIN);
+					if(amount < 0) amount = 0L;
+					if(coinplayer.hasCoins(amount))coinplayer.removeCoins(amount,CoinsUpdateCause.ADMIN);
+					else coinplayer.setCoins(0,CoinsUpdateCause.ADMIN);
 					sender.sendMessage(MessageManager.getInstance().command_coins_remove_sender.replace("[player]",coinplayer.getColor()+coinplayer.getName()).replace("[amount]", SpigotCoinSystemBootstrap.getInstance().format(amount)));
 					Player player = Bukkit.getPlayer(args[1]);
 					if(player != null) player.sendMessage(MessageManager.getInstance().command_coins_remove_receiver.replace("[amount]", SpigotCoinSystemBootstrap.getInstance().format(amount)));

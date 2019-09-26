@@ -7,7 +7,27 @@
     <groupId>ch.dkrieger.coinsystem</groupId>
     <artifactId>CoinSystem</artifactId>
     <packaging>pom</packaging>
-    <version>3.1.4</version>
+    <version>3.1.6</version>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
 
     <properties>
         <timestamp>${maven.build.timestamp}</timestamp>

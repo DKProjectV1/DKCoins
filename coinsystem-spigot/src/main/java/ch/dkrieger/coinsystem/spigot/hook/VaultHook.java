@@ -177,7 +177,7 @@ public class VaultHook extends AbstractEconomy{
 		if(coinplayer == null) return new EconomyResponse(0, 0, ResponseType.FAILURE, "Player notfound");
 		if(coins <= 0) return new EconomyResponse(0, coinplayer.getCoins(), ResponseType.FAILURE, "Cannot withdraw negative funds");
 		if(!coinplayer.hasCoins((long) coins)){
-			return new EconomyResponse(0, coinplayer.getCoins(), ResponseType.FAILURE, "Cannot withdraw negative funds");
+			return new EconomyResponse(0, coinplayer.getCoins(), ResponseType.FAILURE, "Player has not enough coins");
 		}
 		coinplayer.removeCoins((long) coins,"vaulthook");
 		return new EconomyResponse(coins, coinplayer.getCoins(), ResponseType.SUCCESS, "");

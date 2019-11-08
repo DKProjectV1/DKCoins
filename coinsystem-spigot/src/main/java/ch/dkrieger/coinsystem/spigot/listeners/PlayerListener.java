@@ -5,6 +5,7 @@ import ch.dkrieger.coinsystem.core.manager.MessageManager;
 import ch.dkrieger.coinsystem.core.manager.PermissionManager;
 import ch.dkrieger.coinsystem.core.player.CoinPlayer;
 import ch.dkrieger.coinsystem.spigot.SpigotCoinSystemBootstrap;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -37,6 +38,10 @@ public class PlayerListener implements Listener{
 			if(player == null) CoinSystem.getInstance().getPlayerManager().createPlayer(event.getPlayer().getName(),event.getPlayer().getUniqueId());
 			else player.updateInfos(event.getPlayer().getName(),CoinSystem.getInstance().getPlatform().getColor(player)
 					,System.currentTimeMillis());
+
+			if(event.getPlayer().hasPermission("dkbans.admin") && CoinSystem.getInstance().getUpdateChecker().hasNewVersion()) {
+				event.getPlayer().sendMessage(MessageManager.getInstance().prefix + "§7New version available §e" + CoinSystem.getInstance().getUpdateChecker().getLatestVersionString());
+			}
 		});
 	}
 

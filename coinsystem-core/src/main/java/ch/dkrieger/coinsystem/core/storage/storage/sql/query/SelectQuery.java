@@ -1,5 +1,7 @@
 package ch.dkrieger.coinsystem.core.storage.storage.sql.query;
 
+import ch.dkrieger.coinsystem.core.storage.storage.sql.SQLCoinStorage;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,10 +15,8 @@ import java.sql.SQLException;
 
 public class SelectQuery extends  Query{
 
-    private PreparedStatement pstatement;
-
-    public SelectQuery(Connection connection, String query) {
-        super(connection, query);
+    public SelectQuery(SQLCoinStorage storage, String query) {
+        super(storage, query);
     }
 
     public SelectQuery where(String key, Object value) {
@@ -44,17 +44,34 @@ public class SelectQuery extends  Query{
         return this;
     }
 
-    public ResultSet execute() throws SQLException{
-        pstatement = connection.prepareStatement(query);
-        int i = 1;
-        for (Object object : values) {
-            pstatement.setString(i, object.toString());
-            i++;
+    public <R> R execute(SelectResult<R> consumer) {
+        try {
+            return executeExcept(consumer);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return pstatement.executeQuery();
+        return null;
     }
-    public void close() throws SQLException{
-        if(pstatement != null)  pstatement.close();
-        if(connection != null) connection.close();
+
+    public <R> R executeExcept(SelectResult<R> consumer) throws SQLException{
+        try(Connection connection = getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            int i = 1;
+            for (Object object : values) {
+                statement.setString(i, object.toString());
+                i++;
+            }
+            ResultSet result =  statement.executeQuery();
+            R object = consumer.get(result);
+            result.close();
+            statement.close();
+            return object;
+        }
+    }
+
+    public interface SelectResult<R> {
+
+        R get(ResultSet result) throws SQLException;
+
     }
 }

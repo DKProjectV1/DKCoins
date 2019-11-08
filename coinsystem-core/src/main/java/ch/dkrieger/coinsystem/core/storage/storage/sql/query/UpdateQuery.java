@@ -1,5 +1,7 @@
 package ch.dkrieger.coinsystem.core.storage.storage.sql.query;
 
+import ch.dkrieger.coinsystem.core.storage.storage.sql.SQLCoinStorage;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -12,8 +14,8 @@ import java.sql.SQLException;
 
 public class UpdateQuery extends Query {
 
-    public UpdateQuery(Connection connection, String query) {
-        super(connection, query);
+    public UpdateQuery(SQLCoinStorage storage, String query) {
+        super(storage, query);
     }
 
     public UpdateQuery set(String field, Object value) {
@@ -35,7 +37,7 @@ public class UpdateQuery extends Query {
 
     public void execute() {
         PreparedStatement pstatement;
-        try {
+        try(Connection connection = getConnection()) {
             pstatement = connection.prepareStatement(query);
             int i = 1;
             for(Object object : values) {
@@ -44,7 +46,6 @@ public class UpdateQuery extends Query {
             }
             pstatement.executeUpdate();
             pstatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

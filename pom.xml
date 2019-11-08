@@ -7,7 +7,7 @@
     <groupId>ch.dkrieger.coinsystem</groupId>
     <artifactId>CoinSystem</artifactId>
     <packaging>pom</packaging>
-    <version>3.1.6</version>
+    <version>3.1.7</version>
 
     <build>
         <plugins>

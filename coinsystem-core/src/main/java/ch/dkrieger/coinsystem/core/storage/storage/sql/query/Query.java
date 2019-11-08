@@ -1,5 +1,7 @@
 package ch.dkrieger.coinsystem.core.storage.storage.sql.query;
 
+import ch.dkrieger.coinsystem.core.storage.storage.sql.SQLCoinStorage;
+
 import java.sql.Connection;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,15 +14,15 @@ import java.util.List;
 
 public class Query {
 
-    protected Connection connection;
+    protected SQLCoinStorage storage;
     protected String query;
     protected boolean firstvalue;
     protected boolean and;
     protected boolean comma;
     protected List<Object> values;
 
-    public Query(Connection connection, String query){
-        this.connection = connection;
+    public Query(SQLCoinStorage storage, String query){
+        this.storage = storage;
         this.query = query;
         this.firstvalue = true;
         this.comma = false;
@@ -29,7 +31,7 @@ public class Query {
     }
 
     public Connection getConnection() {
-        return connection;
+        return storage.getConnection();
     }
 
     public String toString(){

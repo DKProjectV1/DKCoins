@@ -5,7 +5,6 @@ import ch.dkrieger.coinsystem.core.config.Config;
 import ch.dkrieger.coinsystem.core.manager.MessageManager;
 import ch.dkrieger.coinsystem.core.player.CoinPlayer;
 import ch.dkrieger.coinsystem.core.storage.CoinStorage;
-import ch.dkrieger.coinsystem.core.storage.storage.sql.query.CustomQuery;
 import ch.dkrieger.coinsystem.core.storage.storage.sql.query.SelectQuery;
 import ch.dkrieger.coinsystem.core.storage.storage.sql.sqlite.SQLiteCoinStorage;
 import ch.dkrieger.coinsystem.core.storage.storage.sql.table.Table;
@@ -13,9 +12,8 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -117,9 +115,7 @@ public abstract class SQLCoinStorage implements CoinStorage {
     private CoinPlayer getPlayer(String identifier, Object identifierObject) throws Exception{
         SelectQuery query = this.table.select().where(identifier, identifierObject);
         if(this instanceof SQLiteCoinStorage) query.noCase();
-        ResultSet result = query.execute();
-        if (result == null) return null;
-        try {
+        return query.executeExcept(result -> {
             if(result.next()) {
                 return new CoinPlayer(result.getInt("ID"),
                         UUID.fromString(result.getString("uuid")),
@@ -129,11 +125,8 @@ public abstract class SQLCoinStorage implements CoinStorage {
                         result.getLong("lastLogin"),
                         result.getLong("coins"));
             }
-        } finally {
-            query.close();
-            result.close();
-        }
-        return null;
+            return null;
+        });
     }
 
     @Override
@@ -156,52 +149,36 @@ public abstract class SQLCoinStorage implements CoinStorage {
 
     @Override
     public List<CoinPlayer> getPlayers(){
-        List<CoinPlayer> players = new LinkedList<>();
-        try{
-            SelectQuery query = this.table.select();
-            ResultSet result = query.execute();
-            if (result == null) return null;
-            try {
-                while (result.next()) {
-                    players.add(new CoinPlayer(result.getInt("ID"),
-                            UUID.fromString(result.getString("uuid")),
-                            result.getString("name"),
-                            result.getString("color"),
-                            result.getLong("firstLogin"),
-                            result.getLong("lastLogin"),
-                            result.getLong("coins")));
-                }
-            } finally {
-                query.close();
-                result.close();
+        return this.table.select().execute(result -> {
+            List<CoinPlayer> players = new ArrayList<>();
+            while (result.next()) {
+                players.add(new CoinPlayer(result.getInt("ID"),
+                        UUID.fromString(result.getString("uuid")),
+                        result.getString("name"),
+                        result.getString("color"),
+                        result.getLong("firstLogin"),
+                        result.getLong("lastLogin"),
+                        result.getLong("coins")));
             }
-        }catch (Exception ignored){}
-        return players;
+            return players;
+        });
     }
 
     @Override
     public List<CoinPlayer> getTopPlayers(int maxReturnSize) {
-        List<CoinPlayer> players = new LinkedList<>();
-        try{
-            CustomQuery query = this.table.query();
-            ResultSet result = query.executeAndGetResult("SELECT * FROM `DKCoins_players` ORDER BY `DKCoins_players`.`coins` DESC LIMIT "+maxReturnSize);
-            if (result == null) return null;
-            try {
-                while (result.next()) {
-                    players.add(new CoinPlayer(result.getInt("ID"),
-                            UUID.fromString(result.getString("uuid")),
-                            result.getString("name"),
-                            result.getString("color"),
-                            result.getLong("firstLogin"),
-                            result.getLong("lastLogin"),
-                            result.getLong("coins")));
-                }
-            } finally {
-                query.close();
-                result.close();
+        return this.table.query().executeAndGetResult("SELECT * FROM `DKCoins_players` ORDER BY `DKCoins_players`.`coins` DESC LIMIT " + maxReturnSize, result -> {
+            List<CoinPlayer> players = new ArrayList<>();
+            while (result.next()) {
+                players.add(new CoinPlayer(result.getInt("ID"),
+                        UUID.fromString(result.getString("uuid")),
+                        result.getString("name"),
+                        result.getString("color"),
+                        result.getLong("firstLogin"),
+                        result.getLong("lastLogin"),
+                        result.getLong("coins")));
             }
-        }catch (Exception ignored){}
-        return players;
+            return players;
+        });
     }
 
     @Override

@@ -1,5 +1,7 @@
 package ch.dkrieger.coinsystem.core.storage.storage.sql.query;
 
+import ch.dkrieger.coinsystem.core.storage.storage.sql.SQLCoinStorage;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -12,10 +14,11 @@ import java.sql.SQLException;
 
 public class DeleteQuery extends Query {
 
-    public DeleteQuery(Connection connection, String query) {
-        super(connection, query);
+    public DeleteQuery(SQLCoinStorage storage, String query) {
+        super(storage, query);
         this.firstvalue = true;
     }
+
     public DeleteQuery where(String key, Object value) {
         if(and) query += " AND";
         else{
@@ -27,6 +30,7 @@ public class DeleteQuery extends Query {
         query += "?";
         return this;
     }
+
     public DeleteQuery whereLower(String key, Object value) {
         if(and) query += " AND";
         else{
@@ -38,6 +42,7 @@ public class DeleteQuery extends Query {
         query += "?";
         return this;
     }
+
     public DeleteQuery whereHigher(String key, Object value) {
         if(and) query += " AND";
         else{
@@ -49,10 +54,10 @@ public class DeleteQuery extends Query {
         query += "?";
         return this;
     }
+
     public void execute() {
-        PreparedStatement pstatement;
-        try {
-            pstatement = connection.prepareStatement(query);
+        try(Connection connection = getConnection()) {
+            PreparedStatement pstatement = connection.prepareStatement(query);
             int i = 1;
             for (Object object : values) {
                 pstatement.setString(i,object.toString());
@@ -60,7 +65,6 @@ public class DeleteQuery extends Query {
             }
             pstatement.executeUpdate();
             pstatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

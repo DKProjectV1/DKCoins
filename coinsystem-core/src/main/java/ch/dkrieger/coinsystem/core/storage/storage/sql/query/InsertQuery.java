@@ -1,5 +1,7 @@
 package ch.dkrieger.coinsystem.core.storage.storage.sql.query;
 
+import ch.dkrieger.coinsystem.core.storage.storage.sql.SQLCoinStorage;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,8 +15,8 @@ import java.sql.SQLException;
 
 public class InsertQuery extends Query{
 
-    public InsertQuery(Connection connection, String query) {
-        super(connection, query);
+    public InsertQuery(SQLCoinStorage storage, String query) {
+        super(storage, query);
     }
 
     public InsertQuery insert(String insert) {
@@ -33,26 +35,23 @@ public class InsertQuery extends Query{
     }
 
     public void execute(){
-        PreparedStatement pstatement;
-        try {
-            pstatement = connection.prepareStatement(query);
+        try(Connection connection = getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(query);
             int i = 1;
             for (Object object : values) {
-                pstatement.setString(i, object.toString());
+                statement.setString(i, object.toString());
                 i++;
             }
-            pstatement.executeUpdate();
-            pstatement.close();
-            connection.close();
+            statement.executeUpdate();
+            statement.close();
         }catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public Object executeAndGetKey(){
-        PreparedStatement pstatement;
-        try {
-            pstatement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
+        try(Connection connection = getConnection()) {
+            PreparedStatement pstatement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
             int i = 1;
             for(Object object : values) {
                 pstatement.setString(i, object.toString());
@@ -65,7 +64,6 @@ public class InsertQuery extends Query{
                 result.close();
             }
             pstatement.close();
-            connection.close();
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -73,9 +71,8 @@ public class InsertQuery extends Query{
     }
 
     public int executeAndGetKeyInInt(){
-        PreparedStatement pstatement;
-        try {
-            pstatement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
+        try(Connection connection = getConnection()) {
+            PreparedStatement pstatement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
             int i = 1;
             for(Object object : values) {
                 pstatement.setString(i, object.toString());
@@ -86,7 +83,6 @@ public class InsertQuery extends Query{
             if(result != null && result.next()) return result.getInt(1);
             if(result != null) result.close();
             pstatement.close();
-            connection.close();
         }catch (SQLException e) {
             e.printStackTrace();
         }

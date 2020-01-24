@@ -65,6 +65,7 @@ public abstract class SQLCoinStorage implements CoinStorage {
 
         config.addDataSourceProperty("ssl",pluginConfig.ssl);
         config.addDataSourceProperty("useSSL",pluginConfig.ssl);
+        config.setConnectionTestQuery("SELECT 1");
 
         this.dataSource = new HikariDataSource(config);
     }

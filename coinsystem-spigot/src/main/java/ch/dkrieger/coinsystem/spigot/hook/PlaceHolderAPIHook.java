@@ -3,6 +3,7 @@ package ch.dkrieger.coinsystem.spigot.hook;
 import ch.dkrieger.coinsystem.core.CoinSystem;
 import ch.dkrieger.coinsystem.core.manager.MessageManager;
 import ch.dkrieger.coinsystem.core.player.CoinPlayer;
+import ch.dkrieger.coinsystem.core.utils.GeneralUtil;
 import ch.dkrieger.coinsystem.spigot.SpigotCoinSystemBootstrap;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
@@ -43,9 +44,23 @@ public class PlaceHolderAPIHook extends PlaceholderExpansion {
 			if(coinplayer != null) return CoinSystem.getInstance().getConfig().dateFormat.format(coinplayer.getLastLogin());
 		}else if(identifier.equalsIgnoreCase("id") || identifier.equalsIgnoreCase("playerid")){
 			CoinPlayer coinplayer = CoinSystem.getInstance().getPlayerManager().getPlayer(player.getUniqueId());
-			if(coinplayer != null) return ""+coinplayer.getID();
-		}else if(identifier.equalsIgnoreCase("top") || identifier.equalsIgnoreCase("topcoins") || identifier.equalsIgnoreCase("coinstop")|| identifier.equalsIgnoreCase("topcoin") || identifier.equalsIgnoreCase("topmoney")){
-			return ""+CoinSystem.getInstance().getPlayerManager().getTopCoins(1).get(0).getName();
+			if(coinplayer != null) return String.valueOf(coinplayer.getID());
+		}else if(identifier.equalsIgnoreCase("top_amount")){
+			return SpigotCoinSystemBootstrap.getInstance().format(CoinSystem.getInstance().getPlayerManager().getTopCoins(1).get(0).getCoins());
+		}else if(identifier.startsWith("top_amount_")){
+			String index0 = identifier.substring(identifier.lastIndexOf("_")+1);
+			if(GeneralUtil.isNumber(index0)){
+				int index = Integer.parseInt(index0);
+				return  SpigotCoinSystemBootstrap.getInstance().format(CoinSystem.getInstance().getPlayerManager().getTopCoins(index).get(index-1).getCoins());
+			}else return "";
+		}else if(identifier.equalsIgnoreCase("top")){
+			return CoinSystem.getInstance().getPlayerManager().getTopCoins(1).get(0).getName();
+		}else if(identifier.startsWith("top_")){
+			String index0 = identifier.substring(identifier.lastIndexOf("_")+1);
+			if(GeneralUtil.isNumber(index0)){
+				int index = Integer.parseInt(index0);
+				return CoinSystem.getInstance().getPlayerManager().getTopCoins(index).get(index-1).getName();
+			}else return "";
 		}
 		return "§4Fehler";
 	}

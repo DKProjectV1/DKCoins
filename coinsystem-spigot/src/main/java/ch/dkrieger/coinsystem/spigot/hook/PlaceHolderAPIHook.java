@@ -62,6 +62,6 @@ public class PlaceHolderAPIHook extends PlaceholderExpansion {
 				return CoinSystem.getInstance().getPlayerManager().getTopCoins(index).get(index-1).getName();
 			}else return "";
 		}
-		return "§4Fehler";
+		return "§4Error";
 	}
 }

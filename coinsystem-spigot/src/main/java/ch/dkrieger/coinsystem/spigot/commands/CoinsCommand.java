@@ -58,7 +58,7 @@ public class CoinsCommand extends Command{
 				}else if(args[0].equalsIgnoreCase("help")){
 					sendHelp(sender);
 					return;
-				}else if(args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl")
+				}else if((args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl"))
 						&& sender.hasPermission(PermissionManager.getInstance().command_coins_admin)){
 					CoinSystem.getInstance().reload();
 				}
@@ -220,7 +220,7 @@ public class CoinsCommand extends Command{
 	private boolean isNumber(String value){
 		try{
 			Integer.parseInt(value);
-			return true; 
+			return true;
 		}catch(NumberFormatException e) {
 		    return false;
 		}

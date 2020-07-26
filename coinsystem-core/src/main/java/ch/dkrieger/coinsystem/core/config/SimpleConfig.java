@@ -28,8 +28,8 @@ public abstract class SimpleConfig {
             file.getParentFile().mkdirs();
             if(!file.exists()) this.file.createNewFile();
         }catch (Exception exception){
-            System.out.println(MessageManager.getInstance().system_prefix+"Could not create config file.");
-            System.out.println(MessageManager.getInstance().system_prefix+"Error: "+exception.getMessage());
+            System.out.println(MessageManager.getInstance().system_prefix +"Could not create config file.");
+            System.out.println(MessageManager.getInstance().system_prefix +"Error: "+exception.getMessage());
         }
     }
     public File getFile() {
@@ -49,8 +49,8 @@ public abstract class SimpleConfig {
         try {
             ConfigurationProvider.getProvider(YamlConfiguration.class).save(this.config,file);
         }catch (Exception exception) {
-            System.out.println(MessageManager.getInstance().system_prefix+"Could not save config file.");
-            System.out.println(MessageManager.getInstance().system_prefix+"Error: "+exception.getMessage());
+            System.out.println(MessageManager.getInstance().system_prefix +"Could not save config file.");
+            System.out.println(MessageManager.getInstance().system_prefix +"Error: "+exception.getMessage());
         }
     }
     public void load(){
@@ -59,8 +59,8 @@ public abstract class SimpleConfig {
             if(file.exists()) file.createNewFile();
             this.config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
         }catch (Exception exception){
-            System.out.println(MessageManager.getInstance().system_prefix+"Could not load config file.");
-            System.out.println(MessageManager.getInstance().system_prefix+"Error: "+exception.getMessage());
+            System.out.println(MessageManager.getInstance().system_prefix +"Could not load config file.");
+            System.out.println(MessageManager.getInstance().system_prefix +"Error: "+exception.getMessage());
         }
     }
     public void setValue(String path, Object value){

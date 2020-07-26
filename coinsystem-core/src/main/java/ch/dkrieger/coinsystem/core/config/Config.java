@@ -101,50 +101,50 @@ public class Config extends SimpleConfig{
                 this.playerColors.add(new PlayerColor(split[0],split[1]));
         }
 
-        PermissionManager pm = new PermissionManager();
-        pm.admin = getString("permissions.admin");
-        pm.command_coins_admin = getString("permissions.admin");
-        pm.command_coins = getString("permissions.coins.see");
-        pm.command_coins_others = getString("permissions.coins.seeothers");
-        pm.command_coins_top = getString("permissions.coins.top");
-        pm.command_coins_pay = getString("permissions.coins.pay");
+        PermissionManager permissionManager = new PermissionManager();
+        permissionManager.admin = getString("permissions.admin");
+        permissionManager.command_coins_admin = getString("permissions.admin");
+        permissionManager.command_coins = getString("permissions.coins.see");
+        permissionManager.command_coins_others = getString("permissions.coins.seeothers");
+        permissionManager.command_coins_top = getString("permissions.coins.top");
+        permissionManager.command_coins_pay = getString("permissions.coins.pay");
 
-        MessageManager mm = MessageManager.getInstance();
-        mm.prefix = translate(getString("messages.prefix"));
+        MessageManager messageManager = MessageManager.getInstance();
+        messageManager.prefix = translate(getString("messages.prefix"));
 
-        mm.coins_plural = translate(getString("messages.coins.plural"));
-        mm.coins_singular = translate(getString("messages.coins.singular"));
-        mm.coins_symbol = translate(getString("messages.coins.symbol"));
+        messageManager.coins_plural = translate(getString("messages.coins.plural"));
+        messageManager.coins_singular = translate(getString("messages.coins.singular"));
+        messageManager.coins_symbol = translate(getString("messages.coins.symbol"));
 
-        mm.noperms = mm.prefix+translate(getString("messages.nopermissions"));
-        mm.mysql_noconnection = mm.prefix+translate(getString("messages.noconnection"));
-        mm.playernotfound = mm.prefix+translate(getString("messages.player.notfound"));
+        messageManager.noperms = messageManager.prefix +translate(getString("messages.nopermissions"));
+        messageManager.mysql_noconnection = messageManager.prefix +translate(getString("messages.noconnection"));
+        messageManager.playernotfound = messageManager.prefix +translate(getString("messages.player.notfound"));
 
         this.hook_vault_enabled = getBooleanValue("hook.vault.enabled");
         this.hook_vault_priority = getStringValue("hook.vault.priority");
 
-        mm.command_coins_showownmoney = mm.prefix+translate(getString("messages.command.coins"));
-        mm.command_coins_showothermoney= mm.prefix+translate(getString("messages.command.coinsothers"));
-        mm.command_coins_top_header = mm.prefix+translate(getString("messages.command.top.header"));
-        mm.command_coins_top_list = translate(getString("messages.command.top.list"));
-        mm.command_coins_pay_notenough = mm.prefix+translate(getString("messages.command.pay.notenough"));
-        mm.command_coins_pay_sender = mm.prefix+translate(getString("messages.command.pay.sender"));
-        mm.command_coins_pay_receiver = mm.prefix+translate(getString("messages.command.pay.receiver"));
-        mm.command_coins_set_sender = mm.prefix+translate(getString("messages.command.set.sender"));
-        mm.command_coins_set_receiver = mm.prefix+translate(getString("messages.command.set.receiver"));
-        mm.command_coins_add_sender = mm.prefix+translate(getString("messages.command.add.sender"));
-        mm.command_coins_add_receiver = mm.prefix+translate(getString("messages.command.add.receiver"));
-        mm.command_coins_remove_sender = mm.prefix+translate(getString("messages.command.remove.sender"));
-        mm.command_coins_remove_receiver = mm.prefix+translate(getString("messages.command.remove.receiver"));
+        messageManager.command_coins_showownmoney = messageManager.prefix +translate(getString("messages.command.coins"));
+        messageManager.command_coins_showothermoney= messageManager.prefix +translate(getString("messages.command.coinsothers"));
+        messageManager.command_coins_top_header = messageManager.prefix +translate(getString("messages.command.top.header"));
+        messageManager.command_coins_top_list = translate(getString("messages.command.top.list"));
+        messageManager.command_coins_pay_notenough = messageManager.prefix +translate(getString("messages.command.pay.notenough"));
+        messageManager.command_coins_pay_sender = messageManager.prefix +translate(getString("messages.command.pay.sender"));
+        messageManager.command_coins_pay_receiver = messageManager.prefix +translate(getString("messages.command.pay.receiver"));
+        messageManager.command_coins_set_sender = messageManager.prefix +translate(getString("messages.command.set.sender"));
+        messageManager.command_coins_set_receiver = messageManager.prefix +translate(getString("messages.command.set.receiver"));
+        messageManager.command_coins_add_sender = messageManager.prefix +translate(getString("messages.command.add.sender"));
+        messageManager.command_coins_add_receiver = messageManager.prefix +translate(getString("messages.command.add.receiver"));
+        messageManager.command_coins_remove_sender = messageManager.prefix +translate(getString("messages.command.remove.sender"));
+        messageManager.command_coins_remove_receiver = messageManager.prefix +translate(getString("messages.command.remove.receiver"));
 
-        mm.command_coins_help_header = translate(getString("messages.command.help.header"));
-        mm.command_coins_help_coins = translate(getString("messages.command.help.coins.see"));
-        mm.command_coins_help_top = translate(getString("messages.command.help.coins.top"));
-        mm.command_coins_help_pay = translate(getString("messages.command.help.coins.pay"));
-        mm.command_coins_help_set = translate(getString("messages.command.help.coins.set"));
-        mm.command_coins_help_add = translate(getString("messages.command.help.coins.add"));
-        mm.command_coins_help_remove = translate(getString("messages.command.help.coins.remove"));
-        mm.command_coins_help_reset = translate(getString("messages.command.help.coins.reset"));
+        messageManager.command_coins_help_header = translate(getString("messages.command.help.header"));
+        messageManager.command_coins_help_coins = translate(getString("messages.command.help.coins.see"));
+        messageManager.command_coins_help_top = translate(getString("messages.command.help.coins.top"));
+        messageManager.command_coins_help_pay = translate(getString("messages.command.help.coins.pay"));
+        messageManager.command_coins_help_set = translate(getString("messages.command.help.coins.set"));
+        messageManager.command_coins_help_add = translate(getString("messages.command.help.coins.add"));
+        messageManager.command_coins_help_remove = translate(getString("messages.command.help.coins.remove"));
+        messageManager.command_coins_help_reset = translate(getString("messages.command.help.coins.reset"));
     }
     @Override
     public void registerDefaults() {

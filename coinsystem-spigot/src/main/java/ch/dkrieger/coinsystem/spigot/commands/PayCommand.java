@@ -18,7 +18,7 @@ public class PayCommand extends Command{
 		if(sender.hasPermission(PermissionManager.getInstance().command_coins_pay)){
 			if(args.length >= 2){
 				if(sender instanceof Player) ((Player)sender).performCommand(CoinSystem.getInstance().getConfig().command_name+" pay "+args[0]+" "+args[1]);
-			}else sender.sendMessage(MessageManager.getInstance().prefix+MessageManager.getInstance().command_coins_help_pay);
+			}else sender.sendMessage(MessageManager.getInstance().prefix +MessageManager.getInstance().command_coins_help_pay);
 		}else sender.sendMessage(MessageManager.getInstance().noperms);
 		return false;
 	}

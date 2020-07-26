@@ -7,28 +7,28 @@ import java.util.UUID;
 
 public interface CoinStorage {
 
-    public boolean connect();
+    boolean connect();
 
-    public void disconnect();
+    void disconnect();
 
-    public boolean isConnected();
+    boolean isConnected();
 
-    public CoinPlayer getPlayer(int id) throws Exception;
+    CoinPlayer getPlayer(int id) throws Exception;
 
-    public CoinPlayer getPlayer(UUID uuid) throws Exception;
+    CoinPlayer getPlayer(UUID uuid) throws Exception;
 
-    public CoinPlayer getPlayer(String name) throws Exception;
+    CoinPlayer getPlayer(String name) throws Exception;
 
-    public List<CoinPlayer> getPlayers();
+    List<CoinPlayer> getPlayers();
 
-    public List<CoinPlayer> getTopPlayers(int maxReturnSize);
+    List<CoinPlayer> getTopPlayers(int maxReturnSize);
 
-    public CoinPlayer createPlayer(CoinPlayer player);
+    CoinPlayer createPlayer(CoinPlayer player);
 
-    public void updateCoins(UUID uuid, long coins);
+    void updateCoins(UUID uuid, long coins);
 
-    public void updateColor(UUID uuid, String color);
+    void updateColor(UUID uuid, String color);
 
-    public void updateInformations(UUID uuid, String name, String color, long lastLogin);
+    void updateInformations(UUID uuid, String name, String color, long lastLogin);
 
 }

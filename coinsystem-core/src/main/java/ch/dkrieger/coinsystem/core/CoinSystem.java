@@ -28,7 +28,7 @@ public class CoinSystem {
     private CoinStorage storage;
     private Config config;
     private UpdateChecker updateChecker;
-    private String SYSTEM_NAME;
+    private final String SYSTEM_NAME;
     
     public CoinSystem(DKCoinsPlatform platform) {
         INSTANCE = this;

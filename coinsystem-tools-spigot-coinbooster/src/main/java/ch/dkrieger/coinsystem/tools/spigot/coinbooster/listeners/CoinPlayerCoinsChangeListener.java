@@ -37,7 +37,7 @@ public class CoinPlayerCoinsChangeListener implements Listener {
             long amount = (long) coinboost;
             long newCoins = e.getNewCoins()+amount;
             e.setNewCoins(newCoins);
-            player.sendMessage(MessageManager.getInstance().prefix+CoinBoosterExtension.getInstance().boostmessage
+            player.sendMessage(MessageManager.getInstance().prefix +CoinBoosterExtension.getInstance().boostmessage
                     .replace("[boost]",String.valueOf(boost)).replace("[coins]", SpigotCoinSystemBootstrap.getInstance().format(amount)));
         }
     }

@@ -11,12 +11,12 @@ import net.md_5.bungee.api.plugin.Event;
 public class ProxiedCoinPlayerColorSetEvent extends Event{
 
     private String color;
-    private CoinPlayer player;
-    private ProxiedPlayer proxiedPlayer;
+    private final CoinPlayer coinPlayer;
+    private final ProxiedPlayer proxiedPlayer;
 
-    public ProxiedCoinPlayerColorSetEvent(String color, CoinPlayer player, ProxiedPlayer proxiedPlayer) {
+    public ProxiedCoinPlayerColorSetEvent(String color, CoinPlayer coinPlayer, ProxiedPlayer proxiedPlayer) {
         this.color = color;
-        this.player = player;
+        this.coinPlayer = coinPlayer;
         this.proxiedPlayer = proxiedPlayer;
     }
 
@@ -24,8 +24,8 @@ public class ProxiedCoinPlayerColorSetEvent extends Event{
         return this.color;
     }
 
-    public CoinPlayer getPlayer() {
-        return player;
+    public CoinPlayer getCoinPlayer() {
+        return coinPlayer;
     }
 
     public ProxiedPlayer getProxiedPlayer() {

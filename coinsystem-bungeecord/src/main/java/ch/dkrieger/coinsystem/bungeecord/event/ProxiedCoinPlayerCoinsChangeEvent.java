@@ -7,10 +7,11 @@ import net.md_5.bungee.api.plugin.Event;
 public class ProxiedCoinPlayerCoinsChangeEvent extends Event{
 
 	private final CoinPlayer coinplayer;
-	private long oldCoins, newCoins;
+	private final long oldCoins;
+	private long newCoins;
 	private boolean cancelled;
-	private String message;
-	private CoinsUpdateCause cause;
+	private final String message;
+	private final CoinsUpdateCause cause;
 	
 	public ProxiedCoinPlayerCoinsChangeEvent(CoinPlayer coinplayer, long oldCoins, long newCoins, CoinsUpdateCause cause, String message){
 		this.newCoins = newCoins;

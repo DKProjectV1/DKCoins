@@ -15,9 +15,15 @@ import net.md_5.bungee.event.EventHandler;
 
 public class PlayerListener implements Listener {
 
+    private BungeeCordCoinSystemBootstrap bungeeCordCoinSystemBootstrap;
+
+    public PlayerListener(BungeeCordCoinSystemBootstrap bungeeCordCoinSystemBootstrap) {
+        this.bungeeCordCoinSystemBootstrap = bungeeCordCoinSystemBootstrap;
+    }
+
     @EventHandler
     public void onLogin(final LoginEvent event) {
-        ProxyServer.getInstance().getScheduler().runAsync(BungeeCordCoinSystemBootstrap.getInstance(), () -> {
+        ProxyServer.getInstance().getScheduler().runAsync(bungeeCordCoinSystemBootstrap, () -> {
             CoinPlayer player = null;
             try {
                 try {
@@ -40,7 +46,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onLeave(final PlayerDisconnectEvent event) {
-        ProxyServer.getInstance().getScheduler().runAsync(BungeeCordCoinSystemBootstrap.getInstance(), () -> {
+        ProxyServer.getInstance().getScheduler().runAsync(bungeeCordCoinSystemBootstrap, () -> {
             CoinPlayer player = CoinSystem.getInstance().getPlayerManager().getPlayer(event.getPlayer().getUniqueId());
             if (player != null)
                 player.updateInfos(event.getPlayer().getName(), CoinSystem.getInstance().getPlatform().getColor(player)
@@ -50,7 +56,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onPostLogin(PostLoginEvent event) {
-        ProxyServer.getInstance().getScheduler().runAsync(BungeeCordCoinSystemBootstrap.getInstance(), () -> {
+        ProxyServer.getInstance().getScheduler().runAsync(bungeeCordCoinSystemBootstrap, () -> {
             if (event.getPlayer().hasPermission("dkbans.admin") && CoinSystem.getInstance().getUpdateChecker().hasNewVersion()) {
                 event.getPlayer().sendMessage(TextComponent.fromLegacyText(MessageManager.getInstance().prefix + "§7New version available §e" + CoinSystem.getInstance().getUpdateChecker().getLatestVersionString()));
             }

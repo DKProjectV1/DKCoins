@@ -28,7 +28,7 @@ public class BungeeCordCoinSystemBootstrap extends Plugin implements DKCoinsPlat
 
 	@Override
 	public void onEnable() {
-		ProxyServer.getInstance().getPluginManager().registerListener(this,new PlayerListener());
+		ProxyServer.getInstance().getPluginManager().registerListener(this,new PlayerListener(this));
 	}
 
 	@Override
@@ -75,7 +75,4 @@ public class BungeeCordCoinSystemBootstrap extends Plugin implements DKCoinsPlat
 		return new CoinChangeEventResult(event.isCancelled(),event.getNewCoins());
 	}
 
-	public static BungeeCordCoinSystemBootstrap getInstance(){
-		return INSTANCE;
-	}
 }

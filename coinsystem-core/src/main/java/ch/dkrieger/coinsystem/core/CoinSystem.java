@@ -28,15 +28,17 @@ public class CoinSystem {
     private CoinStorage storage;
     private Config config;
     private UpdateChecker updateChecker;
-
+    private String SYSTEM_NAME;
+    
     public CoinSystem(DKCoinsPlatform platform) {
         INSTANCE = this;
         this.version = "3.1.9";
         this.platform = platform;
 
         new MessageManager("DKCoins");
-        System.out.println("["+MessageManager.getInstance().system_name+"] plugin is starting");
-        System.out.println("["+MessageManager.getInstance().system_name+"] CoinSystem v"+this.version+" by Davide Wietlisbach");
+        this.SYSTEM_NAME = MessageManager.getInstance().system_name;
+        System.out.println("["+this.SYSTEM_NAME+"] plugin is starting");
+        System.out.println("["+this.SYSTEM_NAME+"] CoinSystem v"+this.version+" by Davide Wietlisbach");
 
         try {
             this.updateChecker = new UpdateChecker(39159);
@@ -49,7 +51,7 @@ public class CoinSystem {
 
         systemBootstrap();
 
-        System.out.println("["+MessageManager.getInstance().system_name+"] plugin successfully started");
+        System.out.println("["+this.SYSTEM_NAME+"] plugin successfully started");
     }
 
     private void systemBootstrap(){
@@ -70,26 +72,26 @@ public class CoinSystem {
         else if(this.config.storageType == StorageType.JSON) this.storage = new JsonCoinStorage(this.config);
 
         if(this.storage != null && this.storage.connect()) {
-            System.out.println(MessageManager.getInstance().system_name+"Used Storage: "+this.config.storageType.toString());
+            System.out.println(this.SYSTEM_NAME+"Used Storage: "+this.config.storageType.toString());
             return;
         }
-        System.out.println(MessageManager.getInstance().system_name+"Used Backup Storage: "+StorageType.SQLITE.toString());
+        System.out.println(this.SYSTEM_NAME+"Used Backup Storage: "+StorageType.SQLITE.toString());
         this.storage = new SQLiteCoinStorage(this.config);
     }
 
     public void reload(){
-        System.out.println("["+MessageManager.getInstance().system_name+"] plugin is reloading");
-        System.out.println("["+MessageManager.getInstance().system_name+"] CoinSystem v"+this.version+" by Davide Wietlisbach");
+        System.out.println("["+this.SYSTEM_NAME+"] plugin is reloading");
+        System.out.println("["+this.SYSTEM_NAME+"] CoinSystem v"+this.version+" by Davide Wietlisbach");
         if(this.storage != null) this.storage.disconnect();
         systemBootstrap();
-        System.out.println("["+MessageManager.getInstance().system_name+"] plugin successfully reloaded");
+        System.out.println("["+this.SYSTEM_NAME+"] plugin successfully reloaded");
     }
 
     public void shutdown(){
-        System.out.println("["+MessageManager.getInstance().system_name+"] plugin is stopping");
-        System.out.println("["+MessageManager.getInstance().system_name+"] CoinSystem v"+this.version+" by Davide Wietlisbach");
+        System.out.println("["+this.SYSTEM_NAME+"] plugin is stopping");
+        System.out.println("["+this.SYSTEM_NAME+"] CoinSystem v"+this.version+" by Davide Wietlisbach");
         if(this.storage != null) this.storage.disconnect();
-        System.out.println("["+MessageManager.getInstance().system_name+"] plugin successfully stopped");
+        System.out.println("["+this.SYSTEM_NAME+"] plugin successfully stopped");
     }
 
     public String getVersion() {

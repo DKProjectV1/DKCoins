@@ -17,25 +17,25 @@ public class BukkitCoinPlayerColorSetEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
     private String color;
-    private CoinPlayer player;
-    private Player bukkitPlayer;
+    private final CoinPlayer coinPlayer;
+    private final Player player;
 
-    public BukkitCoinPlayerColorSetEvent(String color, CoinPlayer player, Player bukkitPlayer) {
+    public BukkitCoinPlayerColorSetEvent(String color, CoinPlayer coinPlayer, Player player) {
         super(Thread.currentThread() != SpigotCoinSystemBootstrap.MAIN_SERVER_THREAD);
         this.color = color;
+        this.coinPlayer = coinPlayer;
         this.player = player;
-        this.bukkitPlayer = bukkitPlayer;
     }
     public String getColor(){
         return this.color;
     }
 
-    public CoinPlayer getPlayer() {
-        return this.player;
+    public CoinPlayer getCoinPlayer() {
+        return this.coinPlayer;
     }
 
-    public Player getBukkitPlayer() {
-        return bukkitPlayer;
+    public Player getPlayer() {
+        return player;
     }
 
     public void setColor(String color){

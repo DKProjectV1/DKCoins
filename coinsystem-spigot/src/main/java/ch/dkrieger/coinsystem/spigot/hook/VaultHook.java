@@ -10,30 +10,32 @@ import org.bukkit.OfflinePlayer;
 
 import java.util.List;
 
-public class VaultHook extends AbstractEconomy{
+public class VaultHook extends AbstractEconomy {
+	
+	private final String SYSTEM_NAME = MessageManager.getInstance().system_name;
 
 	public EconomyResponse bankBalance(String arg0) {
-		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, MessageManager.getInstance().system_name+" has no bank support");
+		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, this.SYSTEM_NAME+" has no bank support");
 	}
 
 	public EconomyResponse bankDeposit(String arg0, double arg1) {
-		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, MessageManager.getInstance().system_name+" has no bank support");
+		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, this.SYSTEM_NAME+" has no bank support");
 	}
 
 	public EconomyResponse bankHas(String arg0, double arg1) {
-		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, MessageManager.getInstance().system_name+" has no bank support");
+		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, this.SYSTEM_NAME+" has no bank support");
 	}
 
 	public EconomyResponse bankWithdraw(String arg0, double arg1) {
-		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, MessageManager.getInstance().system_name+" has no bank support");
+		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, this.SYSTEM_NAME+" has no bank support");
 	}
 
 	public EconomyResponse createBank(String arg0, String arg1) {
-		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, MessageManager.getInstance().system_name+" has no bank support");
+		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, this.SYSTEM_NAME+" has no bank support");
 	}
 
 	public EconomyResponse createBank(String arg0, OfflinePlayer arg1) {
-		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, MessageManager.getInstance().system_name+" has no bank support");
+		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, this.SYSTEM_NAME+" has no bank support");
 	}
 
 	public boolean createPlayerAccount(String arg0) {
@@ -61,7 +63,7 @@ public class VaultHook extends AbstractEconomy{
 	}
 
 	public EconomyResponse deleteBank(String arg0) {
-		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, MessageManager.getInstance().system_name+" has no bank support");
+		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, this.SYSTEM_NAME+" has no bank support");
 	}
 
 	public EconomyResponse depositPlayer(String player, double coins) {
@@ -113,7 +115,7 @@ public class VaultHook extends AbstractEconomy{
 	}
 
 	public String getName() {
-		return MessageManager.getInstance().system_name;
+		return this.SYSTEM_NAME;
 	}
 
 	public boolean has(String player, double coins) {
@@ -153,19 +155,19 @@ public class VaultHook extends AbstractEconomy{
 	}
 
 	public EconomyResponse isBankMember(String arg0, String arg1) {
-		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, MessageManager.getInstance().system_name+" has no bank support");
+		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, this.SYSTEM_NAME+" has no bank support");
 	}
 
 	public EconomyResponse isBankMember(String arg0, OfflinePlayer arg1) {
-		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, MessageManager.getInstance().system_name+" has no bank support");
+		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, this.SYSTEM_NAME+" has no bank support");
 	}
 
 	public EconomyResponse isBankOwner(String arg0, String arg1) {
-		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, MessageManager.getInstance().system_name+" has no bank support");
+		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, this.SYSTEM_NAME+" has no bank support");
 	}
 
 	public EconomyResponse isBankOwner(String arg0, OfflinePlayer arg1) {
-		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, MessageManager.getInstance().system_name+" has no bank support");
+		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, this.SYSTEM_NAME+" has no bank support");
 	}
 
 	public boolean isEnabled() {

@@ -4,6 +4,6 @@ public enum CoinsUpdateCause {
 
     API(),
     ADMIN(),
-    PAY();
+    PAY()
 
 }

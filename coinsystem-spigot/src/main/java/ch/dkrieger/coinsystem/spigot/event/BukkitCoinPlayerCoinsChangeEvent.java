@@ -11,10 +11,10 @@ public class BukkitCoinPlayerCoinsChangeEvent extends Event{
 	private static final HandlerList handlers = new HandlerList();
 
 	private final CoinPlayer coinplayer;
-	private String message;
-	private long oldCoins;
+	private final String message;
+	private final long oldCoins;
 	private long newCoins;
-	private CoinsUpdateCause cause;
+	private final CoinsUpdateCause cause;
 	private boolean cancelled;
 	
 	public BukkitCoinPlayerCoinsChangeEvent(CoinPlayer coinplayer, long oldCoins, long newCoins, CoinsUpdateCause cause, String message){

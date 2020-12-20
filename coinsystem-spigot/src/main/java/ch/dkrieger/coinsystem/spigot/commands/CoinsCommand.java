@@ -119,7 +119,7 @@ public class CoinsCommand extends Command{
 					coinplayer.addCoins(amount,CoinsUpdateCause.PAY);
 					sender.sendMessage(MessageManager.getInstance().command_coins_pay_sender.replace("[player]",coinplayer.getColor()+coinplayer.getName()).replace("[amount]", SpigotCoinSystemBootstrap.getInstance().format(amount)));
 					Player player = Bukkit.getPlayer(args[1]);
-					if(player != null) player.sendMessage(MessageManager.getInstance().command_coins_pay_receiver.replace("[amount]", SpigotCoinSystemBootstrap.getInstance().format(amount)).replace("[player]",coinplayer.getColor()+coinsender.getName()));
+					if(player != null) player.sendMessage(MessageManager.getInstance().command_coins_pay_receiver.replace("[amount]", SpigotCoinSystemBootstrap.getInstance().format(amount)).replace("[player]",coinsender.getColor()+coinsender.getName()));
 				}else if(!sender.hasPermission(PermissionManager.getInstance().command_coins_admin)){
 					sendHelp(sender);
 				}else if(args[0].equalsIgnoreCase("set")){

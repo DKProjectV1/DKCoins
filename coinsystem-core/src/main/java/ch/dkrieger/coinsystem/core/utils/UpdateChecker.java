@@ -101,7 +101,7 @@ public class UpdateChecker {
 
     public void loadEndOfLive(){
         try {
-            URLConnection urlConnection = new URL("https://content.pretronic.net/dkplugins-legacy/dkperms.txt").openConnection();
+            URLConnection urlConnection = new URL("https://content.pretronic.net/dkplugins-legacy/dkcoins.txt").openConnection();
             String result = new BufferedReader(new InputStreamReader(urlConnection.getInputStream())).lines()
                     .parallel().collect(Collectors.joining("\n"));
             this.endOfLifeMessage = ComponentSerializer.parse(result);

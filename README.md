@@ -1,5 +1,7 @@
 # DKCoins - Minecraft CoinSystem
 
+### **DKCoins V1 is no longer supported and maintained. Checkout the new DKCoins V5 [here](https://dkplugins.pretronic.net/dkcoins/)**
+
 Official page:
 <https://www.spigotmc.org/resources/dkcoins-coinsystem-mysql-sqlite-mongodb-json-german-english.39159/>
 
